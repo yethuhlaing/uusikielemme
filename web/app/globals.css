@@ -185,3 +185,14 @@
 .home-fallback nav a {
   @apply text-primary no-underline hover:underline;
 }
+
+/* Landing page: Nunito + soft grid + warm palette */
+.landing-page {
+  font-family: var(--font-nunito), "Nunito", ui-sans-serif, system-ui, sans-serif;
+}
+
+.landing-page .landing-bg {
+  background-color: #faf9f7;
+  background-image: radial-gradient(circle at 1px 1px, oklch(0.4 0 0 / 0.06) 1px, transparent 0);
+  background-size: 24px 24px;
+}

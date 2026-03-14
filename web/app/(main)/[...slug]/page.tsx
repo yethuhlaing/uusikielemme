@@ -9,11 +9,16 @@ import {
 
 type Props = { params: Promise<{ slug?: string[] }> };
 
+/** Paths that match the catch-all but are static assets (we 404 them so export succeeds) */
+const RESERVED_SLUGS = [["favicon.ico"], ["robots.txt"], ["sitemap.xml"]];
+
 export async function generateStaticParams() {
   const paths = getAllPaths();
-  return paths.map(({ path: routePath }) => ({
-    slug: pathToSlugSegments(routePath),
-  }));
+  const fromData = paths
+    .map(({ path: routePath }) => pathToSlugSegments(routePath))
+    .filter((segments) => segments.length > 0)
+    .map((slug) => ({ slug }));
+  return [...fromData, ...RESERVED_SLUGS];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -32,7 +37,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function SlugPage({ params }: Props) {
   const { slug } = await params;
-  const item = getByPath(slug ?? []);
+  const segments = slug ?? [];
+  const isReserved = RESERVED_SLUGS.some(
+    (r) => r.length === segments.length && r.every((s, i) => s === segments[i])
+  );
+  if (isReserved) notFound();
+  const item = getByPath(segments);
   if (!item) notFound();
 
   const content = rewriteContentUrls(item.content?.rendered ?? "");

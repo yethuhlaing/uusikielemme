@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { getHomePage, rewriteContentUrls } from "@/lib/wp-json";
 
-export default async function HomePage() {
+export const metadata = {
+  title: "How it Works",
+  description: "Learn how Uusi kielemme helps you practice Finnish.",
+};
+
+export default async function HowItWorksPage() {
   const home = getHomePage();
   if (!home) {
     return (

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { DM_Sans, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
@@ -27,22 +26,7 @@ export default function RootLayout({
   return (
     <html lang="fi">
       <body className={`${dmSans.variable} ${sourceSerif.variable} font-sans`}>
-        <div className="layout">
-          <header className="site-header">
-            <Link href="/" className="site-title">
-              Uusi kielemme
-            </Link>
-            <nav className="site-nav">
-              <Link href="/">Home</Link>
-              <Link href="/finnish-grammar">Finnish Grammar</Link>
-              <Link href="/finnish-vocabulary">Finnish Vocabulary</Link>
-            </nav>
-          </header>
-          <main className="site-main">{children}</main>
-          <footer className="site-footer">
-            <p>Uusi kielemme – Finnish for Busy People</p>
-          </footer>
-        </div>
+        {children}
       </body>
     </html>
   );

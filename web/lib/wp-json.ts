@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { WP_MIRROR_DIR, WP_ORIGIN, UPLOADS_BASE } from "./config";
+import { WP_ORIGIN, UPLOADS_BASE } from "./config";
 
 export interface WPPostOrPage {
   id: number;
@@ -68,11 +68,23 @@ function buildPathMap(): void {
   if (pathMap !== null) return;
   pathMap = new Map();
   slugMap = new Map();
-  const postsDir = path.join(WP_MIRROR_DIR, "wp-json", "wp", "v2", "posts");
-  const pagesDir = path.join(WP_MIRROR_DIR, "wp-json", "wp", "v2", "pages");
+  const cwd = process.cwd();
+  const candidates = [
+    path.join(cwd, "..", "uusikielemme.fi"),
+    path.join(cwd, "uusikielemme.fi"),
+  ];
+  if (process.env.WP_MIRROR_DIR) candidates.unshift(path.resolve(process.env.WP_MIRROR_DIR));
 
-  const posts = loadJsonDir<WPPostOrPage>(postsDir);
-  const pages = loadJsonDir<WPPostOrPage>(pagesDir);
+  let posts: WPPostOrPage[] = [];
+  let pages: WPPostOrPage[] = [];
+  for (const mirrorDir of candidates) {
+    const postsDir = path.join(mirrorDir, "wp-json", "wp", "v2", "posts");
+    const pagesDir = path.join(mirrorDir, "wp-json", "wp", "v2", "pages");
+    if (!fs.existsSync(postsDir) && !fs.existsSync(pagesDir)) continue;
+    posts = loadJsonDir<WPPostOrPage>(postsDir);
+    pages = loadJsonDir<WPPostOrPage>(pagesDir);
+    if (posts.length > 0 || pages.length > 0) break;
+  }
 
   for (const item of [...posts, ...pages]) {
     const link = item.link;
