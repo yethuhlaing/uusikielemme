@@ -5,54 +5,74 @@ import { HeroSection } from "./HeroSection";
 export default function LandingPage() {
     return (
         <div className="landing-bg min-h-screen flex flex-col">
-            <header className="relative z-10 flex flex-wrap items-center justify-between gap-4 px-6 py-5 sm:px-8">
+            <header className="landing-header relative z-10 flex flex-wrap items-center justify-between gap-4 px-6 py-5 sm:px-10">
                 <Link
                     href="/"
-                    className="text-xl font-semibold text-gray-900 hover:text-[#2563eb] transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:ring-offset-2 rounded"
+                    className="flex items-center gap-2 text-xl font-semibold text-black hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-[#fafaf8] rounded"
                 >
-                    LexieLingua
+                    <span
+                        className="flex items-center justify-center w-8 h-8 rounded bg-black text-white text-sm font-bold"
+                        aria-hidden
+                    >
+                        U
+                    </span>
+                    <span>Uusi kielemme</span>
                 </Link>
                 <nav
-                    className="flex flex-wrap items-center gap-3 sm:gap-6"
+                    className="flex items-center gap-1 text-black text-sm font-normal"
                     aria-label="Main"
                 >
                     <Link
-                        href="/how-it-works"
-                        className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:ring-offset-2 rounded"
-                    >
-                        How it Works
-                    </Link>
-                    <Link
                         href="/finnish-grammar"
-                        className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:ring-offset-2 rounded"
+                        className="px-2 py-1 hover:underline focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded"
                     >
-                        Finnish Grammar
+                        Grammar
                     </Link>
+                    <span className="text-gray-400" aria-hidden>
+                        /
+                    </span>
                     <Link
                         href="/finnish-vocabulary"
-                        className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:ring-offset-2 rounded"
+                        className="px-2 py-1 hover:underline focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded"
                     >
-                        Finnish Vocabulary
+                        Vocabulary
                     </Link>
+                    <span className="text-gray-400" aria-hidden>
+                        /
+                    </span>
                     <Link
                         href="/how-it-works"
-                        className="text-gray-700 hover:text-gray-900 text-sm font-medium border border-gray-300 rounded-lg px-4 py-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:ring-offset-2"
+                        className="px-2 py-1 hover:underline focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded"
                     >
-                        Log In
+                        How it works
                     </Link>
+                    <span className="text-gray-400" aria-hidden>
+                        /
+                    </span>
                     <Link
-                        href="/how-it-works"
-                        className="bg-[#2563eb] text-white text-sm font-semibold rounded-lg px-5 py-2.5 hover:bg-[#1d4ed8] transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:ring-offset-2"
+                        href="/finnish-grammar"
+                        className="px-2 py-1 hover:underline focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded"
                     >
-                        Start Practicing
+                        About
                     </Link>
                 </nav>
+                <Link
+                    href="/finnish-grammar"
+                    className="text-black text-sm font-normal hover:underline focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded"
+                >
+                    Log In
+                </Link>
             </header>
 
-            <main className="relative flex-1 flex flex-col items-center justify-center px-6 pt-8 pb-48 sm:pb-56">
-                <FallingTags />
+            <main className="relative flex-1 flex flex-col items-center justify-center px-6 pt-12 pb-56 sm:pb-64">
                 <HeroSection />
+                <FallingTags />
             </main>
+            <div
+                className="h-px w-full bg-gray-200"
+                role="presentation"
+                aria-hidden
+            />
         </div>
     );
 }

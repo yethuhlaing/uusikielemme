@@ -190,18 +190,62 @@
     @apply text-primary no-underline hover:underline;
 }
 
-/* Landing page: Nunito + soft grid + warm palette */
+/* Landing page: clean light design, slash nav, playful tags */
 .landing-page {
     font-family:
         var(--font-nunito), "Nunito", ui-sans-serif, system-ui, sans-serif;
 }
 
-.landing-page .landing-bg {
-    background-color: #faf9f7;
-    background-image: radial-gradient(
-        circle at 1px 1px,
-        oklch(0.4 0 0 / 0.06) 1px,
-        transparent 0
-    );
-    background-size: 24px 24px;
+.landing-page .landing-bg,
+.landing-bg {
+    background-color: #f9f8f3;
+}
+
+.landing-page .landing-header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Tags baseline (thin line tags rest on) */
+.landing-tags-baseline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #b4b4b4;
+}
+
+/* Landing tags: vibrant, pill or circle, black text */
+.landing-tag {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    color: #1a1a1a;
+}
+
+.landing-tag.circle {
+    border-radius: 9999px;
+    aspect-ratio: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Vibrant design-system tag colors */
+.tag-blue {
+    background-color: #4d64e6;
+}
+.tag-coral {
+    background-color: #ee614b;
+}
+.tag-green {
+    background-color: #52b28e;
+}
+.tag-pink {
+    background-color: #f989c4;
+}
+.tag-yellow {
+    background-color: #ffd450;
+}
+.tag-dark {
+    background-color: #1f2e6e;
 }

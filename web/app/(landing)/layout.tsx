@@ -10,9 +10,9 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-    title: "LexieLingua – Speak, not just study",
+    title: "Uusi kielemme – Finnish for Busy People",
     description:
-        "Master real-life conversations through personalized challenges, speech practice, and AI-driven feedback.",
+        "Clear Finnish grammar and vocabulary for adult learners. Self-paced, 650+ articles. Learn at your own pace.",
 };
 
 export default function LandingLayout({
