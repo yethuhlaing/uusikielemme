@@ -9,7 +9,7 @@ export default function LandingPage() {
                 <FallingTags />
             </main>
             <div
-                className="h-px w-full bg-gray-200 shrink-0"
+                className="h-px w-full bg-border shrink-0"
                 role="presentation"
                 aria-hidden
             />

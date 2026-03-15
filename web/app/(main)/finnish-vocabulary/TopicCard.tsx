@@ -25,7 +25,7 @@ export function TopicCard({ href, title, index }: TopicCardProps) {
         >
             <Link
                 href={href}
-                className="group relative overflow-hidden flex flex-col p-6 bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
+                className="group relative overflow-hidden flex flex-col p-6 bg-card rounded-3xl border border-border shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
             >
                 <div className="absolute -right-6 -bottom-6 opacity-[0.04] grayscale group-hover:opacity-[0.12] group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
                     <Icon className="w-40 h-40" />
@@ -41,11 +41,11 @@ export function TopicCard({ href, title, index }: TopicCardProps) {
                     </div>
 
                     <div
-                        className="relative w-12 h-12 flex items-center justify-center bg-slate-50 rounded-full shadow-inner"
+                        className="relative w-12 h-12 flex items-center justify-center bg-muted rounded-full shadow-inner"
                         title={`${progress}% completed`}
                     >
                         <svg className="w-10 h-10 transform -rotate-90 absolute" viewBox="0 0 36 36">
-                            <circle cx="18" cy="18" r="16" fill="none" className="stroke-slate-200" strokeWidth="3" />
+                            <circle cx="18" cy="18" r="16" fill="none" className="stroke-border" strokeWidth="3" />
                             <motion.circle
                                 cx="18"
                                 cy="18"
@@ -61,12 +61,12 @@ export function TopicCard({ href, title, index }: TopicCardProps) {
                                 transition={{ duration: 1, delay: 0.2 + index * 0.05 }}
                             />
                         </svg>
-                        <span className="absolute text-[10px] font-bold text-slate-700" suppressHydrationWarning>{progress}%</span>
+                        <span className="absolute text-[10px] font-bold text-foreground" suppressHydrationWarning>{progress}%</span>
                     </div>
                 </div>
 
                 <div className="relative z-10 mt-auto">
-                    <h3 className="font-bold text-slate-800 text-lg mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                    <h3 className="font-bold text-card-foreground text-lg mb-3 group-hover:text-primary transition-colors line-clamp-2">
                         {title}
                     </h3>
                 </div>

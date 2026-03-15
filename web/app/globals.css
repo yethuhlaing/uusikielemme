@@ -48,12 +48,16 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 .dark {
-    --color-background: oklch(18% 0.02 260);
+    --color-background: oklch(0% 0 0);
     --color-foreground: oklch(95% 0.01 260);
     --color-primary: oklch(65% 0.12 230);
     --color-primary-foreground: oklch(18% 0.02 260);
+    --color-secondary: oklch(25% 0.02 260);
+    --color-secondary-foreground: oklch(95% 0.01 260);
     --color-muted: oklch(25% 0.02 260);
     --color-muted-foreground: oklch(62% 0.02 260);
+    --color-accent: oklch(28% 0.02 260);
+    --color-accent-foreground: oklch(95% 0.01 260);
     --color-border: oklch(28% 0.02 260);
     --color-card: oklch(20% 0.02 260);
     --color-card-foreground: oklch(95% 0.01 260);

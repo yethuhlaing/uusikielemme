@@ -177,11 +177,11 @@ export function FallingTags() {
         >
             <div className="relative w-full max-w-5xl mx-auto flex-1 min-h-[280px] px-4 sm:px-10 lg:px-20 flex items-end justify-center">
                 {/* Background strip so pills sit on a subtle band */}
-                <div className="absolute inset-0 bg-[#FAF9F6]/80 rounded-t-2xl" />
+                <div className="absolute inset-0 bg-background/80 rounded-t-2xl" />
 
                 {/* Wavy baseline from left border – bigger, with arrow */}
                 <svg
-                    className="absolute bottom-16 left-0 w-full h-10 sm:h-12 text-black"
+                    className="absolute bottom-16 left-0 w-full h-10 sm:h-12 text-foreground"
                     viewBox="0 0 1000 40"
                     fill="none"
                     preserveAspectRatio="none"

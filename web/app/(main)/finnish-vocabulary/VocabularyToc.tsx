@@ -1,26 +1,26 @@
 import Link from "next/link";
-import type { VocabularySection } from "@/lib/vocabulary-parse";
+import type { IndexSection } from "@/lib/vocabulary-parse";
 import { cn } from "@/lib/utils";
 
-type Props = { sections: VocabularySection[] };
+type Props = { sections: IndexSection[]; ariaLabel?: string };
 
-export function VocabularyToc({ sections }: Props) {
+export function VocabularyToc({ sections, ariaLabel = "Vocabulary sections" }: Props) {
     if (sections.length === 0) return null;
 
     return (
         <aside className="lg:w-64 shrink-0 hidden md:block">
             <div className="sticky top-24 space-y-1">
-                <h3 className="text-xs font-bold tracking-wider text-slate-400 uppercase mb-6">
+                <h3 className="text-xs font-bold tracking-wider text-muted-foreground uppercase mb-6">
                     On this page
                 </h3>
-                <nav className="space-y-1" aria-label="Vocabulary sections">
+                <nav className="space-y-1" aria-label={ariaLabel}>
                     {sections.map((section) => (
                         <div key={section.id}>
                             <Link
                                 href={`#${section.id}`}
                                 className={cn(
                                     "block px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
-                                    "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                                    "text-muted-foreground hover:bg-muted hover:text-foreground",
                                 )}
                             >
                                 {section.title}

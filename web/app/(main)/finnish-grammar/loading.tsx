@@ -1,8 +1,8 @@
 /**
- * Skeleton shown while the Finnish vocabulary page data is loading.
- * Gives immediate feedback so the page doesn’t feel stuck on reload.
+ * Skeleton shown while the Finnish grammar page data is loading.
+ * Matches the vocabulary-style layout for consistent UX.
  */
-export default function FinnishVocabularyLoading() {
+export default function FinnishGrammarLoading() {
     return (
         <div className="min-h-screen w-full text-foreground animate-pulse">
             <div

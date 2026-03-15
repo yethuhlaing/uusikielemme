@@ -2,18 +2,16 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { getByPath, rewriteContentUrls } from "@/lib/wp-json";
-import {
-    parseVocabularyPageHtml,
-    type VocabularySection,
-} from "@/lib/vocabulary-parse";
-import { VocabularyHero } from "./VocabularyHero";
-import { VocabularyToc } from "./VocabularyToc";
-import { VocabularySectionBlock } from "./VocabularySectionBlock";
+import { parseGrammarPageHtml } from "@/lib/grammar-parse";
+import type { IndexSection } from "@/lib/vocabulary-parse";
+import { GrammarHero } from "./GrammarHero";
+import { VocabularyToc } from "../finnish-vocabulary/VocabularyToc";
+import { VocabularySectionBlock } from "../finnish-vocabulary/VocabularySectionBlock";
 
 export const metadata: Metadata = {
-    title: "Finnish Vocabulary",
+    title: "Finnish Grammar",
     description:
-        "Vocabulary lists and topics for learning Finnish. Browse by theme and level.",
+        "Structured grammar topics for learning Finnish. Cases, verbs, and sentence structure at your own pace.",
 };
 
 const SECTION_ICONS = [
@@ -25,26 +23,27 @@ const SECTION_ICONS = [
     "BookMarked",
 ] as const;
 
-const CACHE_TAG = "finnish-vocabulary-page";
-const REVALIDATE_SECONDS = 3600; // 1 hour; use false for build-time only
+const CACHE_TAG = "finnish-grammar-page";
+const REVALIDATE_SECONDS = 3600; // 1 hour
 
-async function loadVocabularyPageData() {
-    const item = getByPath(["finnish-vocabulary"]);
+async function loadGrammarPageData() {
+    const item = getByPath(["finnish-grammar"]);
     const rawHtml = item?.content?.rendered ?? "";
     const html = rewriteContentUrls(rawHtml);
-    const sections = parseVocabularyPageHtml(html);
+    const sections = parseGrammarPageHtml(html);
     return { item, sections };
 }
 
-const getCachedVocabularyPageData = unstable_cache(
-    loadVocabularyPageData,
+const getCachedGrammarPageData = unstable_cache(
+    loadGrammarPageData,
     [CACHE_TAG],
     { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAG] },
 );
 
-export default async function FinnishVocabularyPage() {
-    const { item, sections } = await getCachedVocabularyPageData();
+export default async function FinnishGrammarPage() {
+    const { item, sections } = await getCachedGrammarPageData();
     const hasSections = sections.length > 0;
+    const sectionsAsIndex: IndexSection[] = sections;
 
     return (
         <div className="min-h-screen w-full text-foreground selection:bg-primary/20 selection:text-primary">
@@ -58,11 +57,14 @@ export default async function FinnishVocabularyPage() {
             />
 
             <div className="max-w-9xl mx-auto px-6 sm:px-8 lg:px-12 py-16 flex flex-col lg:flex-row gap-12 relative z-10">
-                <VocabularyToc sections={sections} />
+                <VocabularyToc
+                    sections={sectionsAsIndex}
+                    ariaLabel="Grammar sections"
+                />
 
                 <main className="flex-1 min-w-0">
-                    <VocabularyHero
-                        title={item?.title?.rendered ?? "Finnish Vocabulary"}
+                    <GrammarHero
+                        title={item?.title?.rendered ?? "Finnish Grammar"}
                         excerptHtml={
                             item?.excerpt?.rendered
                                 ? rewriteContentUrls(item.excerpt.rendered)
@@ -94,15 +96,15 @@ export default async function FinnishVocabularyPage() {
                     ) : (
                         <div className="rounded-lg border border-border bg-card p-8 text-center space-y-4">
                             <p className="text-muted-foreground">
-                                Vocabulary content is loaded from the site
-                                index. If you don’t see any sections here, the
-                                vocabulary index may not be available yet.
+                                Grammar content is loaded from the site index. If
+                                you don&apos;t see any sections here, the
+                                grammar index may not be available yet.
                             </p>
                             <Link
-                                href="/finnish-grammar"
+                                href="/finnish-vocabulary"
                                 className="text-primary font-medium hover:underline"
                             >
-                                Browse Finnish Grammar →
+                                Browse Finnish Vocabulary →
                             </Link>
                         </div>
                     )}

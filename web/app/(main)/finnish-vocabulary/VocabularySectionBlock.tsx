@@ -10,7 +10,7 @@ import {
     LucideIcon,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import type { VocabularySection } from "@/lib/vocabulary-parse";
+import type { IndexSection } from "@/lib/vocabulary-parse";
 import { TopicCard } from "./TopicCard";
 
 const ICON_MAP: Record<string, LucideIcon> = {
@@ -23,7 +23,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
 };
 
 type Props = {
-    section: VocabularySection;
+    section: IndexSection;
     iconName: string;
     linkStartIndex: number;
     sectionIndex: number;
@@ -42,14 +42,10 @@ export function VocabularySectionBlock({ section, iconName, linkStartIndex, sect
             viewport={{ once: true }}
         >
             <div className="flex items-center gap-4 mb-8">
-                <div
-                    className={`p-3 rounded-2xl shadow-sm ${
-                        isFirst ? "bg-indigo-100 text-indigo-600" : "bg-blue-100 text-blue-600"
-                    }`}
-                >
+                <div className="p-3 rounded-2xl shadow-sm bg-accent text-primary">
                     <Icon className="w-6 h-6" />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
+                <h2 className="text-2xl font-bold text-foreground tracking-tight">
                     {section.title}
                 </h2>
             </div>
@@ -66,7 +62,7 @@ export function VocabularySectionBlock({ section, iconName, linkStartIndex, sect
                     ))}
                 </div>
             ) : (
-                <p className="text-slate-500 italic ml-16">No links in this section.</p>
+                <p className="text-muted-foreground italic ml-16">No links in this section.</p>
             )}
         </motion.section>
     );

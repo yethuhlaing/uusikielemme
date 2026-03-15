@@ -7,7 +7,7 @@ export function HeroSection() {
     return (
         <div className="relative z-10 max-w-3xl mx-auto text-center px-4">
             <motion.h1
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-black leading-tight tracking-tight"
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight tracking-tight"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -45,7 +45,7 @@ export function HeroSection() {
                     height="20"
                     viewBox="0 0 32 20"
                     fill="none"
-                    className="text-black"
+                    className="text-foreground"
                 >
                     <path
                         d="M2 12c4-4 8 2 12-2s6-6 10-2c2 2 4 6 8 4"
@@ -57,7 +57,7 @@ export function HeroSection() {
             </motion.span>
 
             <motion.p
-                className="mt-8 text-base sm:text-lg text-gray-600 max-w-xl mx-auto leading-relaxed"
+                className="mt-8 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -82,16 +82,16 @@ export function HeroSection() {
             >
                 <Link
                     href="/finnish-grammar"
-                    className="inline-flex items-center justify-center rounded-lg bg-black px-6 py-3 text-white font-medium hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-[#fafaf8]"
+                    className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-primary-foreground font-medium hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
                 >
                     Get started
                 </Link>
-                <span className="text-gray-400 px-1" aria-hidden>
+                <span className="text-muted-foreground px-1" aria-hidden>
                     /
                 </span>
                 <Link
                     href="/finnish-vocabulary"
-                    className="inline-flex items-center justify-center text-black font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded"
+                    className="inline-flex items-center justify-center text-foreground font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background rounded"
                 >
                     Try for free
                 </Link>
@@ -108,7 +108,7 @@ export function HeroSection() {
                 <svg
                     viewBox="0 0 140 120"
                     fill="none"
-                    className="w-full h-auto text-black"
+                    className="w-full h-auto text-foreground"
                 >
                     <path
                         d="M10 100 Q40 100 50 80 T90 60 T120 40 L135 35"

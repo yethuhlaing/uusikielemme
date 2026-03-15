@@ -12,7 +12,7 @@ export default function LandingLayout({
 }: Readonly<{ children: React.ReactNode }>) {
     return (
         <div
-            className="antialiased flex flex-col min-h-0 overflow-hidden bg-[#f9f8f3]"
+            className="antialiased flex flex-col min-h-0 overflow-hidden bg-background"
             style={{
                 height: "calc(100vh - var(--navbar-height, 4.5rem))",
             }}
