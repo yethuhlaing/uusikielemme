@@ -20,9 +20,10 @@ export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="fi" suppressHydrationWarning>
+        <html lang="fi" suppressHydrationWarning className={nunito.variable}>
             <body
-                className={`${nunito.variable} font-sans flex flex-col min-h-screen`}
+                className="font-sans flex flex-col min-h-screen"
+                style={{ fontFamily: "var(--font-nunito), Nunito, sans-serif" }}
                 suppressHydrationWarning
             >
                 <Navbar />
