@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
-import { DM_Sans, Source_Serif_4 } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/navbar";
 
-const dmSans = DM_Sans({
+const nunito = Nunito({
     subsets: ["latin"],
-    variable: "--font-dm-sans",
+    variable: "--font-nunito",
     display: "swap",
-});
-
-const sourceSerif = Source_Serif_4({
-    subsets: ["latin"],
-    variable: "--font-source-serif",
-    display: "swap",
+    weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -24,11 +20,13 @@ export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="fi">
+        <html lang="fi" suppressHydrationWarning>
             <body
-                className={`${dmSans.variable} ${sourceSerif.variable} font-sans`}
+                className={`${nunito.variable} font-sans flex flex-col min-h-screen`}
+                suppressHydrationWarning
             >
-                {children}
+                <Navbar />
+                <div className="flex-1 flex flex-col min-h-0">{children}</div>
             </body>
         </html>
     );

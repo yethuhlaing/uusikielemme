@@ -3,10 +3,8 @@
 
 @theme {
     /* ---------- Fonts (next/font variables set in layout) ---------- */
-    --font-sans:
-        var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
-    --font-serif:
-        var(--font-source-serif), "Source Serif 4", ui-serif, Georgia, serif;
+    --font-sans: var(--font-nunito), Nunito, sans-serif;
+    --font-serif: var(--font-nunito), Nunito, sans-serif;
 
     /* ---------- Semantic colors (OKLCH) ---------- */
     --color-background: oklch(98.5% 0.004 85);
@@ -42,9 +40,8 @@
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
 
-    /* ---------- Content width (for prose / article) ---------- */
-    --width-content: 45rem;
-    --width-layout: 80rem;
+    /* Navbar height for layout calc (sticky nav) */
+    --navbar-height: 4.5rem;
 }
 
 /* Dark mode variant */
@@ -62,6 +59,10 @@
     --color-card-foreground: oklch(95% 0.01 260);
     --color-ring: oklch(65% 0.12 230);
     --color-ring-offset: oklch(18% 0.02 260);
+}
+
+:root {
+    --navbar-height: 4.5rem;
 }
 
 @layer base {
@@ -83,7 +84,7 @@
     /* Article / long reading: serif, comfortable line length */
     .post-body,
     .prose {
-        @apply font-serif text-[1.0625rem] leading-[1.7] max-w-[var(--width-content)];
+        @apply font-serif text-[1.0625rem] leading-[1.7] max-w-[45rem];
     }
 
     .post-body h1,
@@ -137,115 +138,3 @@
     }
 }
 
-/* Layout utilities (keep existing layout classes working) */
-.layout {
-    @apply min-h-screen flex flex-col;
-}
-
-.site-header {
-    @apply border-b border-border px-4 py-4 sm:px-6 bg-background;
-}
-
-.site-title {
-    @apply text-xl font-semibold text-foreground no-underline hover:text-primary transition-colors mr-6;
-}
-
-.site-nav {
-    @apply inline-flex gap-5 text-muted-foreground;
-}
-
-.site-nav a {
-    @apply no-underline hover:text-primary transition-colors;
-}
-
-.site-main {
-    @apply flex-1 w-full max-w-[var(--width-content)] mx-auto px-4 py-8 sm:px-6;
-}
-
-.site-footer {
-    @apply border-t border-border px-4 py-4 sm:px-6 text-center text-muted-foreground text-sm;
-}
-
-.post-content header {
-    @apply mb-6;
-}
-
-.post-title {
-    @apply font-sans font-semibold text-2xl sm:text-3xl tracking-tight text-foreground m-0 mb-2;
-}
-
-.post-content time {
-    @apply text-sm text-muted-foreground;
-}
-
-.home-fallback h1 {
-    @apply m-0 mb-2;
-}
-
-.home-fallback nav {
-    @apply mt-6 flex gap-4;
-}
-
-.home-fallback nav a {
-    @apply text-primary no-underline hover:underline;
-}
-
-/* Landing page: clean light design, slash nav, playful tags */
-.landing-page {
-    font-family:
-        var(--font-nunito), "Nunito", ui-sans-serif, system-ui, sans-serif;
-}
-
-.landing-page .landing-bg,
-.landing-bg {
-    background-color: #f9f8f3;
-}
-
-.landing-page .landing-header {
-    border-bottom: 1px solid #e5e5e5;
-}
-
-/* Tags baseline (thin line tags rest on) */
-.landing-tags-baseline {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 1px;
-    background-color: #b4b4b4;
-}
-
-/* Landing tags: vibrant, pill or circle, black text */
-.landing-tag {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    color: #1a1a1a;
-}
-
-.landing-tag.circle {
-    border-radius: 9999px;
-    aspect-ratio: 1;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Vibrant design-system tag colors */
-.tag-blue {
-    background-color: #4d64e6;
-}
-.tag-coral {
-    background-color: #ee614b;
-}
-.tag-green {
-    background-color: #52b28e;
-}
-.tag-pink {
-    background-color: #f989c4;
-}
-.tag-yellow {
-    background-color: #ffd450;
-}
-.tag-dark {
-    background-color: #1f2e6e;
-}

@@ -50,16 +50,19 @@ export default async function SlugPage({ params }: Props) {
     const content = rewriteContentUrls(item.content?.rendered ?? "");
 
     return (
-        <article className="post-content">
-            <header>
+        <article>
+            <header className="mb-6">
                 <h1
-                    className="post-title"
+                    className="font-sans font-semibold text-2xl sm:text-3xl tracking-tight text-foreground m-0 mb-2"
                     dangerouslySetInnerHTML={{
                         __html: item.title?.rendered ?? "",
                     }}
                 />
                 {(item.date || item.modified) && (
-                    <time dateTime={item.modified || item.date}>
+                    <time
+                        dateTime={item.modified || item.date}
+                        className="text-sm text-muted-foreground"
+                    >
                         {new Date(
                             item.modified || item.date,
                         ).toLocaleDateString("fi-FI")}

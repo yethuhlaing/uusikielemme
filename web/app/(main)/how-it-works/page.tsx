@@ -10,12 +10,16 @@ export default async function HowItWorksPage() {
     const home = getHomePage();
     if (!home) {
         return (
-            <div className="home-fallback">
-                <h1>Uusi kielemme</h1>
+            <div className="space-y-4">
+                <h1 className="m-0 mb-2">Uusi kielemme</h1>
                 <p>Finnish for Busy People</p>
-                <nav>
-                    <Link href="/finnish-grammar">Finnish Grammar</Link>
-                    <Link href="/finnish-vocabulary">Finnish Vocabulary</Link>
+                <nav className="mt-6 flex gap-4">
+                    <Link href="/finnish-grammar" className="text-primary no-underline hover:underline">
+                        Finnish Grammar
+                    </Link>
+                    <Link href="/finnish-vocabulary" className="text-primary no-underline hover:underline">
+                        Finnish Vocabulary
+                    </Link>
                 </nav>
             </div>
         );
@@ -24,7 +28,7 @@ export default async function HowItWorksPage() {
     const content = rewriteContentUrls(home.content?.rendered ?? "");
 
     return (
-        <article className="home-content post-content">
+        <article>
             <div
                 className="post-body"
                 dangerouslySetInnerHTML={{ __html: content }}

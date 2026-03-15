@@ -1,13 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
 import "../globals.css";
-
-const nunito = Nunito({
-    subsets: ["latin"],
-    variable: "--font-nunito",
-    display: "swap",
-    weight: ["400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
     title: "Uusi kielemme – Finnish for Busy People",
@@ -20,7 +12,10 @@ export default function LandingLayout({
 }: Readonly<{ children: React.ReactNode }>) {
     return (
         <div
-            className={`${nunito.variable} landing-page min-h-screen antialiased`}
+            className="antialiased flex flex-col min-h-0 overflow-hidden bg-[#f9f8f3]"
+            style={{
+                height: "calc(100vh - var(--navbar-height, 4.5rem))",
+            }}
         >
             {children}
         </div>

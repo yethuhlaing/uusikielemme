@@ -172,10 +172,10 @@ const WaveformPill = () => (
 export function FallingTags() {
     return (
         <section
-            className="absolute inset-0 overflow-hidden select-none pointer-events-none"
+            className="flex-1 min-h-0 w-full overflow-hidden select-none pointer-events-none flex flex-col"
             aria-hidden
         >
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[480px] sm:h-[340px] lg:h-[400px] px-4 sm:px-10 lg:px-20 flex items-end justify-center">
+            <div className="relative w-full max-w-5xl mx-auto flex-1 min-h-[280px] px-4 sm:px-10 lg:px-20 flex items-end justify-center">
                 {/* Background strip so pills sit on a subtle band */}
                 <div className="absolute inset-0 bg-[#FAF9F6]/80 rounded-t-2xl" />
 
