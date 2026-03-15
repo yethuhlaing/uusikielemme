@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { ContentScrollTracker } from "./ContentScrollTracker";
+import { ArticleSideDeco } from "./ArticleSideDeco";
 import {
     getAllPaths,
     getByPath,
@@ -12,13 +14,18 @@ type Props = { params: Promise<{ slug?: string[] }> };
 /** Paths that match the catch-all but are static assets (we 404 them so export succeeds) */
 const RESERVED_SLUGS = [["favicon.ico"], ["robots.txt"], ["sitemap.xml"]];
 
-export async function generateStaticParams() {
-    const paths = getAllPaths();
-    const fromData = paths
-        .map(({ path: routePath }) => pathToSlugSegments(routePath))
-        .filter((segments) => segments.length > 0)
-        .map((slug) => ({ slug }));
-    return [...fromData, ...RESERVED_SLUGS];
+export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
+    try {
+        const paths = getAllPaths();
+        const fromData = paths
+            .map(({ path: routePath }) => pathToSlugSegments(routePath))
+            .filter((segments) => segments.length > 0)
+            .map((slug) => ({ slug }));
+        const reserved = RESERVED_SLUGS.map((s) => ({ slug: s }));
+        return [...fromData, ...reserved];
+    } catch {
+        return RESERVED_SLUGS.map((s) => ({ slug: s }));
+    }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -50,29 +57,33 @@ export default async function SlugPage({ params }: Props) {
     const content = rewriteContentUrls(item.content?.rendered ?? "");
 
     return (
-        <article>
-            <header className="mb-6">
-                <h1
-                    className="font-sans font-semibold text-2xl sm:text-3xl tracking-tight text-foreground m-0 mb-2"
-                    dangerouslySetInnerHTML={{
-                        __html: item.title?.rendered ?? "",
-                    }}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,22rem)] gap-0 lg:gap-10 items-start">
+            <article className="min-w-0">
+                <ContentScrollTracker />
+                <header className="mb-6">
+                    <h1
+                        className="font-sans font-semibold text-2xl sm:text-3xl tracking-tight text-foreground m-0 mb-2"
+                        dangerouslySetInnerHTML={{
+                            __html: item.title?.rendered ?? "",
+                        }}
+                    />
+                    {(item.date || item.modified) && (
+                        <time
+                            dateTime={item.modified || item.date}
+                            className="text-sm text-muted-foreground"
+                        >
+                            {new Date(
+                                item.modified || item.date,
+                            ).toLocaleDateString("fi-FI")}
+                        </time>
+                    )}
+                </header>
+                <div
+                    className="post-body"
+                    dangerouslySetInnerHTML={{ __html: content }}
                 />
-                {(item.date || item.modified) && (
-                    <time
-                        dateTime={item.modified || item.date}
-                        className="text-sm text-muted-foreground"
-                    >
-                        {new Date(
-                            item.modified || item.date,
-                        ).toLocaleDateString("fi-FI")}
-                    </time>
-                )}
-            </header>
-            <div
-                className="post-body"
-                dangerouslySetInnerHTML={{ __html: content }}
-            />
-        </article>
+            </article>
+            <ArticleSideDeco />
+        </div>
     );
 }

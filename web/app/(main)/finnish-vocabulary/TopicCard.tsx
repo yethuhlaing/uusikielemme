@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { BookOpen, Activity } from "lucide-react";
 import { getMiniMascot } from "./VocabularyMascots";
+import { useCardProgress } from "./useCardProgress";
 
 type TopicCardProps = {
     href: string;
@@ -13,8 +14,7 @@ type TopicCardProps = {
 
 export function TopicCard({ href, title, index }: TopicCardProps) {
     const Icon = getMiniMascot(index);
-    const wordCount = 12 + (index % 7) * 4;
-    const progress = (index * 23) % 100;
+    const progress = Math.round(useCardProgress(href));
     const isCompleted = progress > 80;
 
     return (
@@ -61,7 +61,7 @@ export function TopicCard({ href, title, index }: TopicCardProps) {
                                 transition={{ duration: 1, delay: 0.2 + index * 0.05 }}
                             />
                         </svg>
-                        <span className="absolute text-[10px] font-bold text-slate-700">{progress}%</span>
+                        <span className="absolute text-[10px] font-bold text-slate-700" suppressHydrationWarning>{progress}%</span>
                     </div>
                 </div>
 
@@ -69,16 +69,6 @@ export function TopicCard({ href, title, index }: TopicCardProps) {
                     <h3 className="font-bold text-slate-800 text-lg mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
                         {title}
                     </h3>
-                    <div className="flex items-center gap-3 text-xs text-slate-500 font-medium flex-wrap">
-                        <span className="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1 rounded-lg">
-                            <BookOpen className="w-3.5 h-3.5 text-slate-400" />
-                            {wordCount} words
-                        </span>
-                        <span className="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1 rounded-lg">
-                            <Activity className="w-3.5 h-3.5 text-slate-400" />
-                            {Math.ceil(wordCount / 4)} min
-                        </span>
-                    </div>
                 </div>
 
                 <div
