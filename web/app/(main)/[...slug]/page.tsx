@@ -3,12 +3,8 @@ import type { Metadata } from "next";
 import { ArticleWithNotesLayout } from "./ArticleWithNotesLayout";
 import { ContentScrollTracker } from "./ContentScrollTracker";
 import { getAdjacentLinks } from "@/lib/adjacent-pages";
-import {
-    getAllPaths,
-    getByPath,
-    pathToSlugSegments,
-    rewriteContentUrls,
-} from "@/lib/wp-json";
+import { getAllRoutePaths, pathToSlugSegments } from "@/lib/static-paths";
+import { getByPath, rewriteContentUrls } from "@/lib/wp-json";
 
 type Props = { params: Promise<{ slug?: string[] }> };
 
@@ -22,9 +18,9 @@ const RESERVED_SLUGS: { slug: string[] }[] = [
 /** Required for output: "export" — list all dynamic paths at build time. */
 export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
     try {
-        const paths = getAllPaths();
+        const paths = getAllRoutePaths();
         const fromData = paths
-            .map(({ path: routePath }) => pathToSlugSegments(routePath))
+            .map((routePath) => pathToSlugSegments(routePath))
             .filter((segments) => segments.length > 0)
             .map((slug) => ({ slug }));
         return [...fromData, ...RESERVED_SLUGS];

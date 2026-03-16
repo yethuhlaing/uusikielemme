@@ -91,8 +91,8 @@ async function GrammarPageContent() {
                     ) : (
                         <div className="rounded-lg border border-border bg-card p-8 text-center space-y-4">
                             <p className="text-muted-foreground">
-                                Grammar content is loaded from the site index. If
-                                you don&apos;t see any sections here, the
+                                Grammar content is loaded from the site index.
+                                If you don&apos;t see any sections here, the
                                 grammar index may not be available yet.
                             </p>
                             <Link

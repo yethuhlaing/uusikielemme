@@ -7,13 +7,9 @@ import {
     serializeAsJSON,
 } from "@excalidraw/excalidraw";
 import "@excalidraw/excalidraw/index.css";
+import { getExcalidrawStorageKey } from "@/lib/excalidraw-notes";
 
-const STORAGE_KEY_PREFIX = "excalidraw-notes-";
 const DEBOUNCE_MS = 400;
-
-function getStorageKey(slug: string[]): string {
-    return `${STORAGE_KEY_PREFIX}${slug.join("/")}`;
-}
 
 type Props = {
     slug: string[];
@@ -28,14 +24,13 @@ export function ExcalidrawNotesPanel({ slug }: Props) {
             if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
             saveTimeoutRef.current = setTimeout(() => {
                 try {
-                    // Cast to any so we don't reference package-internal types (BinaryFiles etc.) that aren't exported from the main entry
                     const json = serializeAsJSON(
                         elements as never,
                         appState as never,
                         files as never,
                         "local",
                     );
-                    const key = getStorageKey(slug);
+                    const key = getExcalidrawStorageKey(slug);
                     if (typeof window !== "undefined" && window.localStorage) {
                         window.localStorage.setItem(key, json);
                     }
@@ -75,7 +70,7 @@ async function loadInitialData(
     slug: string[],
 ): Promise<{ elements: unknown[]; appState: unknown; files: unknown } | null> {
     if (typeof window === "undefined") return null;
-    const key = getStorageKey(slug);
+    const key = getExcalidrawStorageKey(slug);
     const raw = window.localStorage.getItem(key);
     if (!raw) return null;
     try {

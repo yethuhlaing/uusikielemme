@@ -54,6 +54,16 @@ export function Navbar() {
                     /
                 </span>
                 <Link
+                    href="/notes"
+                    prefetch={true}
+                    className="px-2 py-1 hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background rounded"
+                >
+                    Notes
+                </Link>
+                <span className="text-muted-foreground" aria-hidden>
+                    /
+                </span>
+                <Link
                     href="/finnish-grammar"
                     className="px-2 py-1 hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background rounded"
                 >
