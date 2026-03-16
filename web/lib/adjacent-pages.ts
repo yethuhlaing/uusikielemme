@@ -20,7 +20,7 @@ const CACHE_TAG_GRAMMAR = "adjacent-pages-grammar";
 const CACHE_TAG_GLOBAL = "adjacent-pages-global";
 const REVALIDATE = 3600;
 
-function getOrderedVocabularyLinksUncached(): AdjacentLink[] {
+async function getOrderedVocabularyLinksUncached(): Promise<AdjacentLink[]> {
     const item = getByPath(["finnish-vocabulary"]);
     const rawHtml = item?.content?.rendered ?? "";
     const html = rewriteContentUrls(rawHtml);
@@ -30,7 +30,7 @@ function getOrderedVocabularyLinksUncached(): AdjacentLink[] {
     );
 }
 
-function getOrderedGrammarLinksUncached(): AdjacentLink[] {
+async function getOrderedGrammarLinksUncached(): Promise<AdjacentLink[]> {
     const item = getByPath(["finnish-grammar"]);
     const rawHtml = item?.content?.rendered ?? "";
     const html = rewriteContentUrls(rawHtml);
@@ -52,7 +52,7 @@ const getOrderedGrammarLinks = unstable_cache(
     { revalidate: REVALIDATE, tags: [CACHE_TAG_GRAMMAR] },
 );
 
-function getGlobalOrderedLinksUncached(): AdjacentLink[] {
+async function getGlobalOrderedLinksUncached(): Promise<AdjacentLink[]> {
     const paths = getAllPaths()
         .map((p) => p.path)
         .filter((p) => p !== "/")
