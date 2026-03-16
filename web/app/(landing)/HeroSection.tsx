@@ -17,14 +17,14 @@ export function HeroSection() {
             >
                 Learn Finnish without any b
                 <span
-                    className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-blue-500 text-blue-500 text-xl sm:text-2xl align-middle mx-0.5"
+                    className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-primary text-primary text-xl sm:text-2xl align-middle mx-0.5"
                     aria-hidden
                 >
                     *
                 </span>
                 r
                 <span
-                    className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-amber-400 text-amber-500 text-lg sm:text-xl align-middle mx-0.5"
+                    className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-accent text-accent text-lg sm:text-xl align-middle mx-0.5"
                     aria-hidden
                 >
                     ✦

@@ -26,8 +26,8 @@ export function GrammarHero({ title, excerptHtml }: Props) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-emerald-50 rounded-full blur-3xl opacity-60 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-48 h-48 bg-teal-50 rounded-full blur-3xl opacity-60 pointer-events-none" />
+            <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-accent/30 rounded-full blur-3xl opacity-60 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-48 h-48 bg-primary/20 rounded-full blur-3xl opacity-60 pointer-events-none" />
 
             <div className="flex-1 relative z-10">
                 <motion.h1
@@ -39,7 +39,7 @@ export function GrammarHero({ title, excerptHtml }: Props) {
                     {plainTitle.toLowerCase().includes("grammar") ? (
                         <>
                             Finnish{" "}
-                            <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 to-teal-600">
+                            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-accent">
                                 Grammar
                             </span>
                         </>

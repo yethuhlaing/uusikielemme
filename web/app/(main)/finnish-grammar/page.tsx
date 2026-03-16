@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { getByPath, rewriteContentUrls } from "@/lib/wp-json";
-import { parseGrammarPageHtml, parseTableOfContents } from "@/lib/grammar-parse";
+import { parseGrammarPageHtml } from "@/lib/grammar-parse";
 import type { IndexSection } from "@/lib/vocabulary-parse";
 import { GrammarHero } from "./GrammarHero";
 import { VocabularyToc } from "../finnish-vocabulary/VocabularyToc";
@@ -33,8 +33,7 @@ async function loadGrammarPageData() {
     const rawHtml = item?.content?.rendered ?? "";
     const html = rewriteContentUrls(rawHtml);
     const sections = parseGrammarPageHtml(html);
-    const tableOfContents = parseTableOfContents(html);
-    return { item, sections, tableOfContents };
+    return { item, sections };
 }
 
 const getCachedGrammarPageData = unstable_cache(
@@ -44,26 +43,18 @@ const getCachedGrammarPageData = unstable_cache(
 );
 
 async function GrammarPageContent() {
-    const { item, sections, tableOfContents } = await getCachedGrammarPageData();
+    const { item, sections } = await getCachedGrammarPageData();
     const hasSections = sections.length > 0;
     const sectionsAsIndex: IndexSection[] = sections;
 
     return (
         <div className="min-h-screen w-full text-foreground selection:bg-primary/20 selection:text-primary">
-            <div
-                className="fixed inset-0 pointer-events-none opacity-[0.03] z-0"
-                style={{
-                    backgroundImage:
-                        "radial-gradient(#000 1px, transparent 1px)",
-                    backgroundSize: "24px 24px",
-                }}
-            />
+            <div className="fixed inset-0 pointer-events-none z-0 dot-grid" />
 
             <div className="max-w-9xl mx-auto px-6 sm:px-8 lg:px-12 py-16 flex flex-col lg:flex-row gap-12 relative z-10">
                 <VocabularyToc
                     sections={sectionsAsIndex}
                     ariaLabel="Grammar sections"
-                    tableOfContents={tableOfContents}
                 />
 
                 <main className="flex-1 min-w-0">

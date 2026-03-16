@@ -3,138 +3,30 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-/* All positions in % so the pile scales and stays centered on any viewport */
+/* All positions in % so the pile scales and stays centered on any viewport.
+ * Colors reference centralized tokens only: tag-1 (navy) … tag-5 (accent warm). */
 const PILLS = [
     // Bottom layer – on or just above the ground line
-    {
-        text: "Motivation",
-        color: "bg-[#5479F2]",
-        top: "58%",
-        left: "4%",
-        rotate: 0,
-        delay: 0.1,
-    },
-    {
-        text: "Communicate",
-        color: "bg-[#50A478]",
-        top: "58%",
-        left: "78%",
-        rotate: 0,
-        delay: 0.2,
-    },
-    {
-        text: "Advantures",
-        color: "bg-[#0A0E45]",
-        top: "56%",
-        left: "38%",
-        rotate: 0,
-        delay: 0.3,
-        px: "px-12",
-    },
+    { text: "Motivation", color: "bg-tag-1", top: "58%", left: "4%", rotate: 0, delay: 0.1 },
+    { text: "Communicate", color: "bg-tag-2", top: "58%", left: "78%", rotate: 0, delay: 0.2 },
+    { text: "Advantures", color: "bg-tag-3", top: "56%", left: "38%", rotate: 0, delay: 0.3, px: "px-12" },
 
     // Middle / vertical layer
-    {
-        text: "Talk",
-        color: "bg-[#F06543]",
-        top: "28%",
-        left: "9%",
-        rotate: -90,
-        delay: 0.4,
-        h: "h-32",
-    },
-    {
-        text: "Easy",
-        color: "bg-[#0A0E45]",
-        top: "44%",
-        left: "18%",
-        rotate: 90,
-        delay: 0.5,
-        h: "h-32",
-    },
-    {
-        text: "Effectively",
-        color: "bg-[#F4A7D3]",
-        top: "26%",
-        left: "62%",
-        rotate: 90,
-        delay: 0.6,
-        h: "h-48",
-    },
+    { text: "Talk", color: "bg-tag-4", top: "28%", left: "9%", rotate: -90, delay: 0.4, h: "h-32" },
+    { text: "Easy", color: "bg-tag-3", top: "44%", left: "18%", rotate: 90, delay: 0.5, h: "h-32" },
+    { text: "Effectively", color: "bg-tag-2", top: "26%", left: "62%", rotate: 90, delay: 0.6, h: "h-48" },
 
     // Angled items
-    {
-        text: "Studies",
-        color: "bg-[#F4A7D3]",
-        top: "44%",
-        left: "24%",
-        rotate: -50,
-        delay: 0.7,
-    },
-    {
-        text: "Support",
-        color: "bg-[#F06543]",
-        top: "38%",
-        left: "34%",
-        rotate: -85,
-        delay: 0.8,
-        h: "h-40",
-    },
-    {
-        text: "Fun",
-        color: "bg-[#50A478]",
-        top: "34%",
-        left: "40%",
-        rotate: -10,
-        delay: 0.9,
-    },
-    {
-        text: "Exams",
-        color: "bg-[#FFD25E]",
-        top: "36%",
-        left: "50%",
-        rotate: 25,
-        delay: 1.0,
-        textColor: "text-black",
-    },
-    {
-        text: "Speaking",
-        color: "bg-[#FFD25E]",
-        top: "38%",
-        left: "68%",
-        rotate: -55,
-        delay: 1.1,
-        textColor: "text-black",
-        px: "px-10",
-    },
+    { text: "Studies", color: "bg-tag-2", top: "44%", left: "24%", rotate: -50, delay: 0.7 },
+    { text: "Support", color: "bg-tag-4", top: "38%", left: "34%", rotate: -85, delay: 0.8, h: "h-40" },
+    { text: "Fun", color: "bg-tag-2", top: "34%", left: "40%", rotate: -10, delay: 0.9 },
+    { text: "Exams", color: "bg-tag-5", top: "36%", left: "50%", rotate: 25, delay: 1.0, textColor: "text-foreground" },
+    { text: "Speaking", color: "bg-tag-5", top: "38%", left: "68%", rotate: -55, delay: 1.1, textColor: "text-foreground", px: "px-10" },
 
     // Icons / circles
-    {
-        text: "#",
-        color: "bg-[#50A478]",
-        top: "26%",
-        left: "14%",
-        rotate: 15,
-        delay: 1.2,
-        isCircle: true,
-    },
-    {
-        text: "😊",
-        color: "bg-[#F4A7D3]",
-        top: "20%",
-        left: "40%",
-        rotate: 0,
-        delay: 1.3,
-        isCircle: true,
-    },
-    {
-        text: "💬",
-        color: "bg-[#F06543]",
-        top: "44%",
-        left: "82%",
-        rotate: 0,
-        delay: 1.4,
-        isCircle: true,
-    },
+    { text: "#", color: "bg-tag-2", top: "26%", left: "14%", rotate: 15, delay: 1.2, isCircle: true },
+    { text: "😊", color: "bg-tag-2", top: "20%", left: "40%", rotate: 0, delay: 1.3, isCircle: true },
+    { text: "💬", color: "bg-tag-4", top: "44%", left: "82%", rotate: 0, delay: 1.4, isCircle: true },
 ];
 
 const WaveformPill = () => (
@@ -148,7 +40,7 @@ const WaveformPill = () => (
             delay: 0.8,
             mass: 1.5,
         }}
-        className="absolute bg-[#FFD25E] rounded-full p-4 sm:p-6 flex items-center gap-3 sm:gap-4 shadow-xl border-b-4 border-black/10 w-[85%] max-w-[340px] left-1/2 -translate-x-1/2 sm:left-[22%] sm:translate-x-0"
+        className="absolute bg-tag-5 rounded-full p-4 sm:p-6 flex items-center gap-3 sm:gap-4 shadow-xl border-b-4 border-border w-[85%] max-w-[340px] left-1/2 -translate-x-1/2 sm:left-[22%] sm:translate-x-0 text-foreground"
         style={{ top: "18%", zIndex: 30 }}
     >
         <span className="text-xl sm:text-2xl shrink-0" aria-hidden>
@@ -161,7 +53,7 @@ const WaveformPill = () => (
             {[40, 70, 45, 90, 65, 30, 80, 50, 95, 40, 60].map((h, i) => (
                 <div
                     key={i}
-                    className="flex-1 bg-black/30 rounded-full min-w-[3px]"
+                    className="flex-1 bg-foreground/30 rounded-full min-w-[3px]"
                     style={{ height: `${h}%` }}
                 />
             ))}

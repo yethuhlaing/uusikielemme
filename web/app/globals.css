@@ -1,4 +1,8 @@
-/* Uusi kielemme – Language learning design system (Tailwind v4) */
+/* Uusi kielemme – Language learning design system (Tailwind v4)
+ * Centralized color architecture: High School & University
+ * Mature, calming, professional. Navy, deep green, charcoal.
+ * No custom colors in components – reference these tokens only.
+ */
 @import "tailwindcss";
 
 @theme {
@@ -6,33 +10,53 @@
     --font-sans: var(--font-nunito), Nunito, sans-serif;
     --font-serif: var(--font-nunito), Nunito, sans-serif;
 
-    /* ---------- Semantic colors (OKLCH) ---------- */
-    --color-background: oklch(98.5% 0.004 85);
-    --color-foreground: oklch(22% 0.02 260);
+    /* ---------- Semantic colors (OKLCH) – academic palette ---------- */
+    /* Backgrounds: cool, paper-like */
+    --color-background: oklch(98.2% 0.003 250);
+    --color-foreground: oklch(24% 0.012 260);
 
-    --color-primary: oklch(42% 0.12 230);
+    /* Primary: navy – links, primary actions, key UI */
+    --color-primary: oklch(32% 0.08 264);
     --color-primary-foreground: oklch(99% 0 0);
 
-    --color-secondary: oklch(96% 0.005 85);
-    --color-secondary-foreground: oklch(22% 0.02 260);
+    /* Secondary: subtle cool gray */
+    --color-secondary: oklch(95% 0.006 250);
+    --color-secondary-foreground: oklch(24% 0.012 260);
 
-    --color-muted: oklch(96% 0.005 85);
-    --color-muted-foreground: oklch(48% 0.02 260);
+    /* Muted: sections, table stripes, disabled */
+    --color-muted: oklch(94% 0.006 250);
+    --color-muted-foreground: oklch(50% 0.02 260);
 
-    --color-accent: oklch(96% 0.01 230);
-    --color-accent-foreground: oklch(22% 0.02 260);
+    /* Accent: deep green – subtle highlights, progress, secondary emphasis */
+    --color-accent: oklch(42% 0.07 165);
+    --color-accent-foreground: oklch(99% 0 0);
 
-    --color-destructive: oklch(55% 0.22 25);
+    /* Feedback – subdued, not loud */
+    --color-destructive: oklch(48% 0.14 25);
     --color-destructive-foreground: oklch(99% 0 0);
+    --color-success: oklch(45% 0.09 155);
+    --color-warning: oklch(70% 0.12 75);
+    --color-warning-muted: oklch(92% 0.06 75);
 
-    --color-success: oklch(55% 0.18 155);
-    --color-warning: oklch(75% 0.15 75);
+    /* Primary tint (e.g. mascot surfaces, soft highlights) */
+    --color-primary-muted: oklch(92% 0.025 264);
 
-    --color-border: oklch(90% 0.01 260);
-    --color-ring: oklch(42% 0.12 230);
+    /* UI elements */
+    --color-border: oklch(88% 0.01 260);
+    --color-ring: oklch(32% 0.08 264);
     --color-card: oklch(100% 0 0);
-    --color-card-foreground: oklch(22% 0.02 260);
-    --color-ring-offset: oklch(98.5% 0.004 85);
+    --color-card-foreground: oklch(24% 0.012 260);
+    --color-ring-offset: oklch(98.2% 0.003 250);
+
+    /* Dot grid (background pattern) */
+    --color-dot: oklch(24% 0.012 260 / 0.04);
+
+    /* Tag / pill variants (landing, decorative) – from palette */
+    --color-tag-1: oklch(32% 0.08 264);
+    --color-tag-2: oklch(42% 0.07 165);
+    --color-tag-3: oklch(24% 0.04 264);
+    --color-tag-4: oklch(50% 0.1 25);
+    --color-tag-5: oklch(72% 0.12 75);
 
     /* ---------- Radius ---------- */
     --radius-sm: 0.25rem;
@@ -48,21 +72,32 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 .dark {
-    --color-background: oklch(0% 0 0);
-    --color-foreground: oklch(95% 0.01 260);
-    --color-primary: oklch(65% 0.12 230);
+    --color-background: oklch(14% 0.01 260);
+    --color-foreground: oklch(94% 0.01 260);
+    --color-primary: oklch(58% 0.1 264);
     --color-primary-foreground: oklch(18% 0.02 260);
-    --color-secondary: oklch(25% 0.02 260);
-    --color-secondary-foreground: oklch(95% 0.01 260);
-    --color-muted: oklch(25% 0.02 260);
+    --color-secondary: oklch(22% 0.02 260);
+    --color-secondary-foreground: oklch(94% 0.01 260);
+    --color-muted: oklch(22% 0.02 260);
     --color-muted-foreground: oklch(62% 0.02 260);
-    --color-accent: oklch(28% 0.02 260);
-    --color-accent-foreground: oklch(95% 0.01 260);
+    --color-accent: oklch(48% 0.08 165);
+    --color-accent-foreground: oklch(18% 0.02 260);
+    --color-destructive: oklch(55% 0.14 25);
+    --color-success: oklch(52% 0.09 155);
+    --color-warning: oklch(72% 0.12 75);
     --color-border: oklch(28% 0.02 260);
-    --color-card: oklch(20% 0.02 260);
-    --color-card-foreground: oklch(95% 0.01 260);
-    --color-ring: oklch(65% 0.12 230);
+    --color-card: oklch(18% 0.02 260);
+    --color-card-foreground: oklch(94% 0.01 260);
+    --color-ring: oklch(58% 0.1 264);
     --color-ring-offset: oklch(18% 0.02 260);
+    --color-primary-muted: oklch(28% 0.03 264);
+    --color-dot: oklch(94% 0.01 260 / 0.06);
+    --color-tag-1: oklch(45% 0.08 264);
+    --color-tag-2: oklch(50% 0.07 165);
+    --color-tag-3: oklch(30% 0.03 260);
+    --color-tag-4: oklch(55% 0.12 25);
+    --color-tag-5: oklch(68% 0.12 75);
+    --color-warning-muted: oklch(28% 0.04 75);
 }
 
 :root {
@@ -166,4 +201,19 @@
     .post-body .su-box a {
         @apply text-primary underline underline-offset-2 decoration-primary/40 hover:decoration-primary;
     }
+}
+
+/* Hide scrollbar but keep scroll behaviour */
+.scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Dot grid background – uses --color-dot from theme */
+.dot-grid {
+    background-image: radial-gradient(var(--color-dot) 1px, transparent 1px);
+    background-size: 24px 24px;
 }

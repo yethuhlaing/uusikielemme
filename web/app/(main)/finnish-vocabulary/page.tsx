@@ -50,14 +50,7 @@ async function VocabularyPageContent() {
 
     return (
         <div className="min-h-screen w-full text-foreground selection:bg-primary/20 selection:text-primary">
-            <div
-                className="fixed inset-0 pointer-events-none opacity-[0.03] z-0"
-                style={{
-                    backgroundImage:
-                        "radial-gradient(#000 1px, transparent 1px)",
-                    backgroundSize: "24px 24px",
-                }}
-            />
+            <div className="fixed inset-0 pointer-events-none z-0 dot-grid" />
 
             <div className="max-w-9xl mx-auto px-6 sm:px-8 lg:px-12 py-16 flex flex-col lg:flex-row gap-12 relative z-10">
                 <VocabularyToc sections={sections} />

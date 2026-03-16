@@ -17,33 +17,34 @@ The interface embodies a **calm, editorial study space**: clear, warm, and highl
 
 ---
 
-## 2. Color Palette & Roles
+## 2. Color Architecture (Centralized)
 
-All values are given in OKLCH for Tailwind `@theme` and perceptual consistency.
+**Rule:** Components must not use custom or hardcoded colors. All color comes from `web/app/globals.css` via semantic tokens (e.g. `bg-primary`, `text-foreground`, `var(--color-primary)` in SVG/inline).
 
-### Backgrounds & Surfaces
-- **Page Background** – `oklch(98.5% 0.004 85)` – Warm off-white, paper-like. Main canvas.
-- **Surface / Card** – `oklch(100% 0 0)` – Pure white for cards and raised content.
-- **Muted Surface** – `oklch(96% 0.005 85)` – Sections, table stripes, disabled areas.
+**Palette:** High School & University — mature, calming, professional. Navy, deep green, charcoal. Subtle accents; strong hierarchy; no loud saturation except for key UI.
 
-### Primary (Brand & Actions)
-- **Primary** – `oklch(42% 0.12 230)` – Deep teal-blue. Links, primary buttons, active nav.
-- **Primary Hover** – `oklch(38% 0.12 230)` – Darker on hover.
-- **Primary Foreground** – `oklch(99% 0 0)` – Text on primary buttons.
+### Tokens (defined in `@theme` and `.dark`)
 
-### Typography
-- **Foreground** – `oklch(22% 0.02 260)` – Main body and headings. Near-black, slight blue.
-- **Muted Foreground** – `oklch(48% 0.02 260)` – Metadata, captions, secondary text.
-- **Faint** – `oklch(65% 0.015 260)` – Placeholders, hints.
+| Token | Role |
+|-------|------|
+| `background` | Page canvas (cool off-white light / charcoal dark) |
+| `foreground` | Body text, headings (charcoal) |
+| `primary` | Navy — links, primary buttons, key UI |
+| `primary-foreground` | Text on primary |
+| `primary-muted` | Light primary tint (e.g. mascot surfaces) |
+| `secondary` | Subtle cool gray surfaces |
+| `muted` / `muted-foreground` | Sections, stripes, metadata |
+| `accent` | Deep green — subtle highlights, progress, secondary emphasis |
+| `accent-foreground` | Text on accent |
+| `success` | Deep green — correct, completed |
+| `warning` / `warning-muted` | Muted amber — warnings, soft highlights |
+| `destructive` | Errors, delete |
+| `border` / `ring` / `ring-offset` | UI edges and focus |
+| `card` / `card-foreground` | Cards and raised content |
+| `dot` | Dot grid background pattern |
+| `tag-1` … `tag-5` | Decorative pills/tags (landing) — from palette |
 
-### Semantic (Feedback & Learning)
-- **Success** – `oklch(55% 0.18 155)` – Correct answers, success states, “learned”.
-- **Warning** – `oklch(75% 0.15 75)` – Warnings, “review again”.
-- **Destructive / Error** – `oklch(55% 0.22 25)` – Errors, delete, incorrect.
-
-### UI Elements
-- **Border** – `oklch(90% 0.01 260)` – Dividers, card edges, table borders.
-- **Ring (Focus)** – `oklch(42% 0.12 230)` – Focus outline for accessibility.
+Use Tailwind utilities (`bg-primary`, `text-success`) or CSS variables (`var(--color-primary)`) in SVG/inline. Do not use hex, raw oklch, or Tailwind arbitrary colors for brand/UI.
 
 ---
 
@@ -155,14 +156,8 @@ Use consistent vertical rhythm between sections (e.g. 2rem between article secti
 
 ---
 
-## 8. Quick Reference (Hex for Non-Tailwind Use)
+## 8. Quick Reference
 
-| Role        | Hex       | Use                    |
-|------------|-----------|-------------------------|
-| Background | `#FBF9F7` | Page                    |
-| Primary    | `#1B5F7A` | Links, primary buttons  |
-| Foreground | `#1C2834` | Body text               |
-| Muted      | `#5C6773` | Meta, secondary         |
-| Success    | `#0D9668` | Correct / success       |
-| Error      | `#C7382C` | Errors, destructive     |
-| Border     | `#E5E7EB` | Borders, dividers       |
+- **Tailwind:** `bg-primary`, `text-foreground`, `border-border`, `bg-success`, `bg-tag-1`, etc.
+- **SVG / inline:** `fill="var(--color-primary)"`, `stroke="var(--color-muted-foreground)"`.
+- **No custom colors:** Do not use hex, `oklch(...)`, or arbitrary Tailwind colors (`bg-[#...]`) in components. Add new tokens in `globals.css` if a new role is needed.

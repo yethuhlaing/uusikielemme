@@ -59,8 +59,8 @@ export function TopicCard({ href, title, index }: TopicCardProps) {
                                 fill="none"
                                 className={
                                     isCompleted
-                                        ? "text-emerald-500 stroke-current"
-                                        : "text-blue-500 stroke-current"
+                                        ? "text-success stroke-current"
+                                        : "text-primary stroke-current"
                                 }
                                 strokeWidth="3"
                                 strokeDasharray="100"
@@ -91,7 +91,7 @@ export function TopicCard({ href, title, index }: TopicCardProps) {
 
                 <div
                     className={`absolute bottom-0 left-0 h-1.5 w-full origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ${
-                        isCompleted ? "bg-emerald-400" : "bg-blue-500"
+                        isCompleted ? "bg-success" : "bg-primary"
                     }`}
                 />
             </Link>

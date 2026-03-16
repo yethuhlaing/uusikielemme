@@ -5,14 +5,7 @@
 export default function FinnishGrammarLoading() {
     return (
         <div className="min-h-screen w-full text-foreground animate-pulse">
-            <div
-                className="fixed inset-0 pointer-events-none opacity-[0.03] z-0"
-                style={{
-                    backgroundImage:
-                        "radial-gradient(#000 1px, transparent 1px)",
-                    backgroundSize: "24px 24px",
-                }}
-            />
+            <div className="fixed inset-0 pointer-events-none z-0 dot-grid" />
 
             <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-12 relative z-10">
                 {/* TOC skeleton */}

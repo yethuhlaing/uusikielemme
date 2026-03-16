@@ -22,7 +22,7 @@ export function VocabularyToc({
 
     return (
         <aside className="lg:w-64 shrink-0 hidden md:block">
-            <div className="sticky top-24 space-y-1">
+            <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto scrollbar-hide space-y-1">
                 {hasToc && (
                     <>
                         <h3 className="text-xs font-bold tracking-wider text-muted-foreground uppercase mb-6">
