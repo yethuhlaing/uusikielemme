@@ -7,17 +7,18 @@ import {
     serializeAsJSON,
 } from "@excalidraw/excalidraw";
 import "@excalidraw/excalidraw/index.css";
-import { getExcalidrawStorageKey } from "@/lib/excalidraw-notes";
+import { getExcalidrawStorageKeyById } from "@/lib/excalidraw-notes";
 
 const DEBOUNCE_MS = 400;
 
 type Props = {
-    slug: string[];
+    noteId: string;
+    title?: string;
 };
 
-export function ExcalidrawNotesPanel({ slug }: Props) {
+export function ExcalidrawNotesPanel({ noteId, title }: Props) {
     const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const [initialDataPromise] = useState(() => loadInitialData(slug));
+    const [initialDataPromise] = useState(() => loadInitialData(noteId));
 
     const handleChange = useCallback(
         (elements: readonly unknown[], appState: unknown, files: unknown) => {
@@ -30,7 +31,7 @@ export function ExcalidrawNotesPanel({ slug }: Props) {
                         files as never,
                         "local",
                     );
-                    const key = getExcalidrawStorageKey(slug);
+                    const key = getExcalidrawStorageKeyById(noteId);
                     if (typeof window !== "undefined" && window.localStorage) {
                         window.localStorage.setItem(key, json);
                     }
@@ -40,16 +41,18 @@ export function ExcalidrawNotesPanel({ slug }: Props) {
                 saveTimeoutRef.current = null;
             }, DEBOUNCE_MS);
         },
-        [slug],
+        [noteId],
     );
+
+    const displayTitle =
+        title && title.length > 40 ? `${title.slice(0, 40)}…` : title;
 
     return (
         <div className="flex flex-col h-full overflow-hidden border border-border shadow-sm">
-            <div className="shrink-0 px-4 py-3 border-b bg-muted/50">
-                <h2 className="text-sm font-semibold text-foreground">Notes</h2>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                    Draw or type here. Saved automatically per article.
-                </p>
+            <div className="shrink-0 px-3 py-2 border-b bg-muted/50">
+                <h2 className="text-sm font-medium text-foreground truncate">
+                    {displayTitle ?? "Notes"}
+                </h2>
             </div>
             <div className="flex-1 min-h-0 h-0 relative">
                 <Excalidraw
@@ -67,10 +70,10 @@ export function ExcalidrawNotesPanel({ slug }: Props) {
 }
 
 async function loadInitialData(
-    slug: string[],
+    noteId: string,
 ): Promise<{ elements: unknown[]; appState: unknown; files: unknown } | null> {
     if (typeof window === "undefined") return null;
-    const key = getExcalidrawStorageKey(slug);
+    const key = getExcalidrawStorageKeyById(noteId);
     const raw = window.localStorage.getItem(key);
     if (!raw) return null;
     try {

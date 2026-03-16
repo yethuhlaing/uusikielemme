@@ -3,6 +3,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+/* Deterministic "random" offset per index so server and client match (avoids hydration mismatch). */
+function initialRotateOffset(index: number): number {
+    return ((index * 17 + 31) % 41) - 20;
+}
+
 /* All positions in % so the pile scales and stays centered on any viewport.
  * Colors reference centralized tokens only: tag-1 (navy) … tag-5 (accent warm). */
 const PILLS = [
@@ -105,7 +110,7 @@ export function FallingTags() {
                             initial={{
                                 y: -400,
                                 opacity: 0,
-                                rotate: p.rotate + (Math.random() * 40 - 20),
+                                rotate: p.rotate + initialRotateOffset(i),
                             }}
                             animate={{ y: 0, opacity: 1, rotate: p.rotate }}
                             transition={{

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { NotesPageClient } from "./NotesPageClient";
+import { NotesPageLoader } from "./NotesPageLoader";
 
 export const metadata: Metadata = {
     title: "My notes",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function NotesPage() {
-    return <NotesPageClient />;
+    return <NotesPageLoader />;
 }

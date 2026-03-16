@@ -3,6 +3,7 @@ import { Nunito } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
+import { SileoToaster } from "@/components/SileoToaster";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const nunito = Nunito({
@@ -52,6 +53,7 @@ export default function RootLayout({
                     showSpinner={false}
                 />
                 <ThemeProvider>
+                    <SileoToaster />
                     <Navbar />
                     <div className="flex-1 flex flex-col min-h-0">
                         {children}

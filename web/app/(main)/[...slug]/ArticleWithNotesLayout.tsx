@@ -1,16 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { AdjacentLink } from "@/lib/adjacent-pages";
-
-const ExcalidrawNotesPanel = dynamic(
-    () =>
-        import("./ExcalidrawNotesPanel").then((m) => ({
-            default: m.ExcalidrawNotesPanel,
-        })),
-    { ssr: false },
-);
+import { ArticleNotesSidebar } from "./ArticleNotesSidebar";
 
 type Props = {
     slug: string[];
@@ -58,9 +50,7 @@ export function ArticleWithNotesLayout({ slug, prev, next, children }: Props) {
                     </nav>
                 )}
             </div>
-            <aside className="min-w-0 pt-8 lg:pt-0 lg:fixed lg:right-12 lg:top-(--navbar-height) lg:w-[calc(0.45*(100vw-6rem))] lg:h-[calc(100vh-var(--navbar-height))] lg:pl-2 lg:border-l lg:border-border">
-                <ExcalidrawNotesPanel slug={slug} />
-            </aside>
+            <ArticleNotesSidebar />
         </div>
     );
 }
