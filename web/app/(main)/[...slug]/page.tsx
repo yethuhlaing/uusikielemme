@@ -13,16 +13,27 @@ import {
 type Props = { params: Promise<{ slug?: string[] }> };
 
 /** Paths that match the catch-all but are static assets (we 404 them so export succeeds) */
-const RESERVED_SLUGS = [["favicon.ico"], ["robots.txt"], ["sitemap.xml"]];
+const RESERVED_SLUGS: { slug: string[] }[] = [
+    { slug: ["favicon.ico"] },
+    { slug: ["robots.txt"] },
+    { slug: ["sitemap.xml"] },
+];
 
-export async function generateStaticParams() {
-    const paths = getAllPaths();
-    const fromData = paths
-        .map(({ path: routePath }) => pathToSlugSegments(routePath))
-        .filter((segments) => segments.length > 0)
-        .map((slug) => ({ slug }));
-    return [...fromData, ...RESERVED_SLUGS];
+/** Required for output: "export" — list all dynamic paths at build time. */
+export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
+    try {
+        const paths = getAllPaths();
+        const fromData = paths
+            .map(({ path: routePath }) => pathToSlugSegments(routePath))
+            .filter((segments) => segments.length > 0)
+            .map((slug) => ({ slug }));
+        return [...fromData, ...RESERVED_SLUGS];
+    } catch {
+        return RESERVED_SLUGS;
+    }
 }
+
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
@@ -43,8 +54,8 @@ export default async function SlugPage({ params }: Props) {
     const segments = slug ?? [];
     const isReserved = RESERVED_SLUGS.some(
         (r) =>
-            r.length === segments.length &&
-            r.every((s, i) => s === segments[i]),
+            r.slug.length === segments.length &&
+            r.slug.every((s, i) => s === segments[i]),
     );
     if (isReserved) notFound();
     const item = getByPath(segments);
