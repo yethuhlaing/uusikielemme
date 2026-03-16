@@ -31,8 +31,6 @@ type Props = {
 
 export function VocabularySectionBlock({ section, iconName, linkStartIndex, sectionIndex }: Props) {
     const Icon = ICON_MAP[iconName] ?? List;
-    const isFirst = sectionIndex === 0;
-
     return (
         <motion.section
             id={section.id}

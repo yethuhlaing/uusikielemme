@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArticleWithNotesLayout } from "./ArticleWithNotesLayout";
 import { ContentScrollTracker } from "./ContentScrollTracker";
+import { getAdjacentLinks } from "@/lib/adjacent-pages";
 import {
     getAllPaths,
     getByPath,
@@ -50,9 +51,10 @@ export default async function SlugPage({ params }: Props) {
     if (!item) notFound();
 
     const content = rewriteContentUrls(item.content?.rendered ?? "");
+    const { prev, next } = await getAdjacentLinks(segments);
 
     return (
-        <ArticleWithNotesLayout slug={segments}>
+        <ArticleWithNotesLayout slug={segments} prev={prev} next={next}>
             <article className="min-w-0 rounded-xl bg-card border border-border shadow-sm p-6 sm:p-8">
                 <ContentScrollTracker />
                 <header className="mb-6">

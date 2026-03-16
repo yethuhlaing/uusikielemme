@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import { WP_ORIGIN, UPLOADS_BASE } from "./config";
 
+const WP_API_PER_PAGE = 100;
+
 export interface WPPostOrPage {
     id: number;
     type: "post" | "page";

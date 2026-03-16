@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { getByPath, rewriteContentUrls } from "@/lib/wp-json";
@@ -9,6 +10,7 @@ import {
 import { VocabularyHero } from "./VocabularyHero";
 import { VocabularyToc } from "./VocabularyToc";
 import { VocabularySectionBlock } from "./VocabularySectionBlock";
+import FinnishVocabularyLoading from "./loading";
 
 export const metadata: Metadata = {
     title: "Finnish Vocabulary",
@@ -42,7 +44,7 @@ const getCachedVocabularyPageData = unstable_cache(
     { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAG] },
 );
 
-export default async function FinnishVocabularyPage() {
+async function VocabularyPageContent() {
     const { item, sections } = await getCachedVocabularyPageData();
     const hasSections = sections.length > 0;
 
@@ -109,5 +111,13 @@ export default async function FinnishVocabularyPage() {
                 </main>
             </div>
         </div>
+    );
+}
+
+export default function FinnishVocabularyPage() {
+    return (
+        <Suspense fallback={<FinnishVocabularyLoading />}>
+            <VocabularyPageContent />
+        </Suspense>
     );
 }

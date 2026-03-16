@@ -141,4 +141,29 @@
     .post-body hr {
         @apply border-0 border-t border-border my-6;
     }
+
+    /* Override WordPress su-box “Table of Contents” so it matches app styling */
+    .post-body .su-box {
+        @apply rounded-xl border border-border bg-card shadow-sm overflow-hidden my-6;
+        border-color: inherit;
+    }
+    .post-body .su-box-title {
+        @apply px-4 py-3 text-sm font-semibold text-card-foreground bg-muted border-b border-border;
+        background-color: inherit !important;
+        color: inherit !important;
+    }
+    .post-body .su-box-content {
+        @apply px-4 py-4 text-foreground;
+        background-color: inherit !important;
+    }
+    .post-body .su-box ol,
+    .post-body .su-box ul {
+        @apply my-0 pl-6;
+    }
+    .post-body .su-box li {
+        @apply my-1.5;
+    }
+    .post-body .su-box a {
+        @apply text-primary underline underline-offset-2 decoration-primary/40 hover:decoration-primary;
+    }
 }

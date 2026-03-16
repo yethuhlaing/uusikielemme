@@ -1,12 +1,14 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { getByPath, rewriteContentUrls } from "@/lib/wp-json";
-import { parseGrammarPageHtml } from "@/lib/grammar-parse";
+import { parseGrammarPageHtml, parseTableOfContents } from "@/lib/grammar-parse";
 import type { IndexSection } from "@/lib/vocabulary-parse";
 import { GrammarHero } from "./GrammarHero";
 import { VocabularyToc } from "../finnish-vocabulary/VocabularyToc";
 import { VocabularySectionBlock } from "../finnish-vocabulary/VocabularySectionBlock";
+import FinnishGrammarLoading from "./loading";
 
 export const metadata: Metadata = {
     title: "Finnish Grammar",
@@ -31,7 +33,8 @@ async function loadGrammarPageData() {
     const rawHtml = item?.content?.rendered ?? "";
     const html = rewriteContentUrls(rawHtml);
     const sections = parseGrammarPageHtml(html);
-    return { item, sections };
+    const tableOfContents = parseTableOfContents(html);
+    return { item, sections, tableOfContents };
 }
 
 const getCachedGrammarPageData = unstable_cache(
@@ -40,8 +43,8 @@ const getCachedGrammarPageData = unstable_cache(
     { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAG] },
 );
 
-export default async function FinnishGrammarPage() {
-    const { item, sections } = await getCachedGrammarPageData();
+async function GrammarPageContent() {
+    const { item, sections, tableOfContents } = await getCachedGrammarPageData();
     const hasSections = sections.length > 0;
     const sectionsAsIndex: IndexSection[] = sections;
 
@@ -60,6 +63,7 @@ export default async function FinnishGrammarPage() {
                 <VocabularyToc
                     sections={sectionsAsIndex}
                     ariaLabel="Grammar sections"
+                    tableOfContents={tableOfContents}
                 />
 
                 <main className="flex-1 min-w-0">
@@ -111,5 +115,13 @@ export default async function FinnishGrammarPage() {
                 </main>
             </div>
         </div>
+    );
+}
+
+export default function FinnishGrammarPage() {
+    return (
+        <Suspense fallback={<FinnishGrammarLoading />}>
+            <GrammarPageContent />
+        </Suspense>
     );
 }

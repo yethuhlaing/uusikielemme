@@ -1,9 +1,14 @@
+import { decodeHtmlEntities } from "@/lib/utils";
+
 /**
  * Parse grammar index page HTML into sections (headings + links)
  * for a structured layout with TOC and grouped link cards.
  * Same structure as vocabulary-parse but filters links under /finnish-grammar.
  */
 export type GrammarLink = { href: string; text: string };
+
+/** One entry from the "Table of Contents" box (anchor link + label) */
+export type TocEntry = { anchor: string; title: string };
 
 export type GrammarSection = {
     id: string;
@@ -23,9 +28,41 @@ function toId(text: string): string {
         || "section";
 }
 
-/** Extract text from HTML (strip tags) */
+/** Extract text from HTML (strip tags, decode entities like &#8211;) */
 function stripHtml(html: string): string {
-    return html.replace(/<[^>]*>/g, "").trim();
+    const text = html.replace(/<[^>]*>/g, "").trim();
+    return decodeHtmlEntities(text);
+}
+
+/**
+ * Parse the "Table of Contents" box from the grammar page into a structured list.
+ * Looks for the su-box with title "Table of Contents" and extracts ol > li > a(href="#...").
+ */
+export function parseTableOfContents(html: string): TocEntry[] {
+    const entries: TocEntry[] = [];
+    const tocTitleMatch = html.match(/su-box-title[^>]*>[\s\S]*?Table of Contents\s*<\/div>/i);
+    if (!tocTitleMatch) return entries;
+    const afterTitle = html.indexOf(tocTitleMatch[0]) + tocTitleMatch[0].length;
+    const contentStart = html.indexOf("su-box-content", afterTitle);
+    if (contentStart === -1) return entries;
+    const olStart = html.indexOf("<ol>", contentStart);
+    const olEnd = html.indexOf("</ol>", olStart);
+    if (olStart === -1 || olEnd === -1) return entries;
+    const olBlock = html.slice(olStart, olEnd + 5);
+    const liRe = /<li[^>]*>([\s\S]*?)<\/li>/gi;
+    const anchorRe = /<a\s+href=["']#([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i;
+    let liMatch: RegExpExecArray | null;
+    while ((liMatch = liRe.exec(olBlock)) !== null) {
+        const inner = liMatch[1];
+        const anchorMatch = inner.match(anchorRe);
+        if (anchorMatch) {
+            entries.push({
+                anchor: anchorMatch[1].trim(),
+                title: stripHtml(anchorMatch[2]),
+            });
+        }
+    }
+    return entries;
 }
 
 /** Parse one block (after a heading) for links that point to grammar subpages */

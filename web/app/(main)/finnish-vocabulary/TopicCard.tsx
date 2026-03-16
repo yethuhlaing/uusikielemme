@@ -27,41 +27,59 @@ export function TopicCard({ href, title, index }: TopicCardProps) {
                 href={href}
                 className="group relative overflow-hidden flex flex-col p-6 bg-card rounded-3xl border border-border shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
             >
-                <div className="absolute -right-6 -bottom-6 opacity-[0.04] grayscale group-hover:opacity-[0.12] group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
+                <div className="absolute -right-6 -bottom-6 opacity-[0.1] grayscale group-hover:opacity-[0.28] group-hover:grayscale-0 group-hover:brightness-125 transition-all duration-500 transform group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
                     <Icon className="w-40 h-40" />
                 </div>
 
                 <div className="flex justify-between items-start mb-8 relative z-10">
-                    <div
-                        className={`p-2 rounded-2xl border group-hover:scale-110 transition-transform duration-300 shadow-sm ${
-                            isCompleted ? "bg-emerald-50 border-emerald-100" : "bg-blue-50 border-blue-100"
-                        }`}
-                    >
+                    <div className="rounded-2xl bg-transparent group-hover:scale-110 transition-transform duration-300">
                         <Icon className="w-10 h-10 drop-shadow-sm" />
                     </div>
 
                     <div
-                        className="relative w-12 h-12 flex items-center justify-center bg-muted rounded-full shadow-inner"
+                        className="relative w-12 h-12 flex items-center justify-center  rounded-full shadow-inner"
                         title={`${progress}% completed`}
                     >
-                        <svg className="w-10 h-10 transform -rotate-90 absolute" viewBox="0 0 36 36">
-                            <circle cx="18" cy="18" r="16" fill="none" className="stroke-border" strokeWidth="3" />
+                        <svg
+                            className="w-10 h-10 transform -rotate-90 absolute"
+                            viewBox="0 0 36 36"
+                        >
+                            <circle
+                                cx="18"
+                                cy="18"
+                                r="16"
+                                fill="none"
+                                className="stroke-border"
+                                strokeWidth="3"
+                            />
                             <motion.circle
                                 cx="18"
                                 cy="18"
                                 r="16"
                                 fill="none"
-                                className={isCompleted ? "text-emerald-500 stroke-current" : "text-blue-500 stroke-current"}
+                                className={
+                                    isCompleted
+                                        ? "text-emerald-500 stroke-current"
+                                        : "text-blue-500 stroke-current"
+                                }
                                 strokeWidth="3"
                                 strokeDasharray="100"
                                 strokeDashoffset={100 - progress}
                                 strokeLinecap="round"
                                 initial={{ strokeDashoffset: 100 }}
                                 animate={{ strokeDashoffset: 100 - progress }}
-                                transition={{ duration: 1, delay: 0.2 + index * 0.05 }}
+                                transition={{
+                                    duration: 1,
+                                    delay: 0.2 + index * 0.05,
+                                }}
                             />
                         </svg>
-                        <span className="absolute text-[10px] font-bold text-foreground" suppressHydrationWarning>{progress}%</span>
+                        <span
+                            className="absolute text-[10px] font-bold text-foreground"
+                            suppressHydrationWarning
+                        >
+                            {progress}%
+                        </span>
                     </div>
                 </div>
 

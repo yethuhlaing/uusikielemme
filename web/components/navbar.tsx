@@ -25,6 +25,7 @@ export function Navbar() {
             >
                 <Link
                     href="/finnish-grammar"
+                    prefetch={true}
                     className="px-2 py-1 hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background rounded"
                 >
                     Grammar
@@ -34,6 +35,7 @@ export function Navbar() {
                 </span>
                 <Link
                     href="/finnish-vocabulary"
+                    prefetch={true}
                     className="px-2 py-1 hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background rounded"
                 >
                     Vocabulary
@@ -43,6 +45,7 @@ export function Navbar() {
                 </span>
                 <Link
                     href="/how-it-works"
+                    prefetch={true}
                     className="px-2 py-1 hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background rounded"
                 >
                     How it works

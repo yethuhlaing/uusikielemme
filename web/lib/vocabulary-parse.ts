@@ -1,3 +1,5 @@
+import { decodeHtmlEntities } from "@/lib/utils";
+
 /**
  * Parse vocabulary index page HTML into sections (headings + links)
  * for a structured layout with TOC and grouped link cards.
@@ -24,9 +26,10 @@ function toId(text: string): string {
         .replace(/^-|-$/g, "") || "section";
 }
 
-/** Extract text from HTML (strip tags) */
+/** Extract text from HTML (strip tags, decode entities like &#8211;) */
 function stripHtml(html: string): string {
-    return html.replace(/<[^>]*>/g, "").trim();
+    const text = html.replace(/<[^>]*>/g, "").trim();
+    return decodeHtmlEntities(text);
 }
 
 /** Parse one block (after a heading) for links that point to vocabulary subpages */

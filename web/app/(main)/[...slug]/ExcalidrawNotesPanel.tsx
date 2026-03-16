@@ -1,7 +1,11 @@
 "use client";
 
 import { useCallback, useRef, useState, type ComponentProps } from "react";
-import { Excalidraw, loadFromBlob, serializeAsJSON } from "@excalidraw/excalidraw";
+import {
+    Excalidraw,
+    loadFromBlob,
+    serializeAsJSON,
+} from "@excalidraw/excalidraw";
 import "@excalidraw/excalidraw/index.css";
 
 const STORAGE_KEY_PREFIX = "excalidraw-notes-";
@@ -47,9 +51,7 @@ export function ExcalidrawNotesPanel({ slug }: Props) {
     return (
         <div className="flex flex-col h-full overflow-hidden border border-border shadow-sm">
             <div className="shrink-0 px-4 py-3 border-b bg-muted/50">
-                <h2 className="text-sm font-semibold text-foreground">
-                    Notes
-                </h2>
+                <h2 className="text-sm font-semibold text-foreground">Notes</h2>
                 <p className="text-xs text-muted-foreground mt-0.5">
                     Draw or type here. Saved automatically per article.
                 </p>
