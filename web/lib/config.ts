@@ -1,16 +1,20 @@
 import path from "path";
 import fs from "fs";
 
-/** Path to the WordPress mirror (wp-json + wp-content) */
+/** Path to the WordPress mirror (posts + pages dirs, or legacy wp-json) */
 function resolveMirrorDir(): string {
     if (process.env.WP_MIRROR_DIR) return process.env.WP_MIRROR_DIR;
     const cwd = process.cwd();
+    const hasMirror = (dir: string) =>
+        fs.existsSync(path.join(dir, "posts")) ||
+        fs.existsSync(path.join(dir, "pages")) ||
+        fs.existsSync(path.join(dir, "wp-json"));
     // Run from web/ -> mirror at ../uusikielemme.fi
     const fromWeb = path.join(cwd, "..", "uusikielemme.fi");
-    if (fs.existsSync(path.join(fromWeb, "wp-json"))) return fromWeb;
+    if (hasMirror(fromWeb)) return fromWeb;
     // Run from repo root -> mirror at ./uusikielemme.fi
     const fromRoot = path.join(cwd, "uusikielemme.fi");
-    if (fs.existsSync(path.join(fromRoot, "wp-json"))) return fromRoot;
+    if (hasMirror(fromRoot)) return fromRoot;
     return fromWeb;
 }
 

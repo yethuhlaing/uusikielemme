@@ -81,11 +81,22 @@ function buildPathMap(): void {
     let posts: WPPostOrPage[] = [];
     let pages: WPPostOrPage[] = [];
     for (const mirrorDir of candidates) {
-        const postsDir = path.join(mirrorDir, "wp-json", "wp", "v2", "posts");
-        const pagesDir = path.join(mirrorDir, "wp-json", "wp", "v2", "pages");
-        if (!fs.existsSync(postsDir) && !fs.existsSync(pagesDir)) continue;
-        posts = loadJsonDir<WPPostOrPage>(postsDir);
-        pages = loadJsonDir<WPPostOrPage>(pagesDir);
+        // Prefer posts/ and pages/ directly under mirror (e.g. uusikielemme.fi/posts, uusikielemme.fi/pages)
+        const postsDirFlat = path.join(mirrorDir, "posts");
+        const pagesDirFlat = path.join(mirrorDir, "pages");
+        const postsDirLegacy = path.join(mirrorDir, "wp-json", "wp", "v2", "posts");
+        const pagesDirLegacy = path.join(mirrorDir, "wp-json", "wp", "v2", "pages");
+        const useFlat =
+            fs.existsSync(postsDirFlat) || fs.existsSync(pagesDirFlat);
+        const useLegacy =
+            fs.existsSync(postsDirLegacy) || fs.existsSync(pagesDirLegacy);
+        if (!useFlat && !useLegacy) continue;
+        posts = loadJsonDir<WPPostOrPage>(
+            useFlat ? postsDirFlat : postsDirLegacy,
+        );
+        pages = loadJsonDir<WPPostOrPage>(
+            useFlat ? pagesDirFlat : pagesDirLegacy,
+        );
         if (posts.length > 0 || pages.length > 0) break;
     }
 
