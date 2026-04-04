@@ -103,7 +103,7 @@ export function NotesPageClient() {
     const handleNewNote = useCallback(() => {
         const note = createNote({
             id: crypto.randomUUID(),
-            title: "New note",
+            title: "Untitled note",
         });
         refreshNotes();
         setSelectedId(note.id);
@@ -169,9 +169,10 @@ export function NotesPageClient() {
                     <button
                         type="button"
                         onClick={handleNewNote}
+                        title="Add a new blank canvas note"
                         className="mt-3 w-full px-3 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
                     >
-                        New note
+                        Add note
                     </button>
                 </div>
                 <nav
@@ -289,7 +290,7 @@ export function NotesPageClient() {
                                 Select a note
                             </h2>
                             <p className="text-muted-foreground text-sm">
-                                Choose a note from the list or create a new one.
+                                Choose a note from the list or use Add note.
                             </p>
                         </div>
                     </div>

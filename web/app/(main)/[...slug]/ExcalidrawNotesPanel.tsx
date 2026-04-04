@@ -16,7 +16,7 @@ type Props = {
     title?: string;
 };
 
-export function ExcalidrawNotesPanel({ noteId, title }: Props) {
+export function ExcalidrawNotesPanel({ noteId }: Props) {
     const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [initialDataPromise] = useState(() => loadInitialData(noteId));
 
@@ -44,17 +44,9 @@ export function ExcalidrawNotesPanel({ noteId, title }: Props) {
         [noteId],
     );
 
-    const displayTitle =
-        title && title.length > 40 ? `${title.slice(0, 40)}…` : title;
-
     return (
-        <div className="flex flex-col h-full overflow-hidden border border-border shadow-sm">
-            <div className="shrink-0 px-3 py-2 border-b bg-muted/50">
-                <h2 className="text-sm font-medium text-foreground truncate">
-                    {displayTitle ?? "Notes"}
-                </h2>
-            </div>
-            <div className="flex-1 min-h-0 h-0 relative">
+        <div className="flex flex-col h-full overflow-hidden rounded-xl border border-border shadow-sm">
+            <div className="relative h-0 min-h-0 flex-1">
                 <Excalidraw
                     initialData={
                         initialDataPromise as unknown as ComponentProps<

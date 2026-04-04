@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Pencil } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { sileo } from "sileo";
 import {
@@ -42,7 +42,7 @@ export function ArticleNotesSidebar() {
     const handleNewNote = useCallback(() => {
         const note = createNote({
             id: crypto.randomUUID(),
-            title: "New note",
+            title: "Untitled note",
         });
         refreshRegistry();
         setSelectedId(note.id);
@@ -80,13 +80,18 @@ export function ArticleNotesSidebar() {
     return (
         <aside className="min-w-0 pt-8 lg:pt-0 lg:fixed lg:right-12 lg:top-(--navbar-height) lg:w-[calc(0.45*(100vw-6rem))] lg:h-[calc(100vh-var(--navbar-height))] lg:pl-2 lg:border-l lg:border-border flex flex-col gap-2">
             <div className="flex flex-col gap-2 shrink-0 mt-1">
+                <p className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
+                    Notes for this page
+                </p>
                 <div className="flex gap-2">
                     <button
                         type="button"
                         onClick={handleNewNote}
-                        className="shrink-0 px-3 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+                        title="Add a new blank canvas note"
+                        className="inline-flex shrink-0 items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
                     >
-                        New note
+                        <Plus className="size-4 shrink-0" aria-hidden />
+                        Add note
                     </button>
                     {sortedNotes.length > 0 && !isEditingSelected && (
                         <>
@@ -96,9 +101,9 @@ export function ArticleNotesSidebar() {
                                     setSelectedId(e.target.value || null)
                                 }
                                 className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
-                                aria-label="Choose note"
+                                aria-label="Open a note"
                             >
-                                <option value="">Choose note…</option>
+                                <option value="">Select a note…</option>
                                 {sortedNotes.map((n) => (
                                     <option key={n.id} value={n.id}>
                                         {n.title}
