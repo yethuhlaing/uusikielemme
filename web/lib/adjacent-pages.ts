@@ -1,4 +1,3 @@
-import { unstable_cache } from "next/cache";
 import {
     getAllPaths,
     getByPath,
@@ -15,12 +14,7 @@ export type AdjacentLinks = {
     next: AdjacentLink | null;
 };
 
-const CACHE_TAG_VOCAB = "adjacent-pages-vocab";
-const CACHE_TAG_GRAMMAR = "adjacent-pages-grammar";
-const CACHE_TAG_GLOBAL = "adjacent-pages-global";
-const REVALIDATE = 3600;
-
-async function getOrderedVocabularyLinksUncached(): Promise<AdjacentLink[]> {
+async function getOrderedVocabularyLinks(): Promise<AdjacentLink[]> {
     const item = getByPath(["finnish-vocabulary"]);
     const rawHtml = item?.content?.rendered ?? "";
     const html = rewriteContentUrls(rawHtml);
@@ -30,7 +24,7 @@ async function getOrderedVocabularyLinksUncached(): Promise<AdjacentLink[]> {
     );
 }
 
-async function getOrderedGrammarLinksUncached(): Promise<AdjacentLink[]> {
+async function getOrderedGrammarLinks(): Promise<AdjacentLink[]> {
     const item = getByPath(["finnish-grammar"]);
     const rawHtml = item?.content?.rendered ?? "";
     const html = rewriteContentUrls(rawHtml);
@@ -40,19 +34,7 @@ async function getOrderedGrammarLinksUncached(): Promise<AdjacentLink[]> {
     );
 }
 
-const getOrderedVocabularyLinks = unstable_cache(
-    getOrderedVocabularyLinksUncached,
-    [CACHE_TAG_VOCAB],
-    { revalidate: REVALIDATE, tags: [CACHE_TAG_VOCAB] },
-);
-
-const getOrderedGrammarLinks = unstable_cache(
-    getOrderedGrammarLinksUncached,
-    [CACHE_TAG_GRAMMAR],
-    { revalidate: REVALIDATE, tags: [CACHE_TAG_GRAMMAR] },
-);
-
-async function getGlobalOrderedLinksUncached(): Promise<AdjacentLink[]> {
+async function getGlobalOrderedLinks(): Promise<AdjacentLink[]> {
     const paths = getAllPaths()
         .map((p) => p.path)
         .filter((p) => p !== "/")
@@ -65,12 +47,6 @@ async function getGlobalOrderedLinksUncached(): Promise<AdjacentLink[]> {
         return { href: routePath, title };
     });
 }
-
-const getGlobalOrderedLinks = unstable_cache(
-    getGlobalOrderedLinksUncached,
-    [CACHE_TAG_GLOBAL],
-    { revalidate: REVALIDATE, tags: [CACHE_TAG_GLOBAL] },
-);
 
 /** Find index of current page in ordered links; match by path or by same WP item id. */
 function findCurrentIndex(

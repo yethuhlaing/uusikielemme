@@ -1,7 +1,5 @@
 import Link from "next/link";
-import { Suspense } from "react";
 import type { Metadata } from "next";
-import { unstable_cache } from "next/cache";
 import { getByPath, rewriteContentUrls } from "@/lib/wp-json";
 import {
     parseVocabularyPageHtml,
@@ -10,7 +8,6 @@ import {
 import { VocabularyHero } from "./VocabularyHero";
 import { VocabularyToc } from "./VocabularyToc";
 import { VocabularySectionBlock } from "./VocabularySectionBlock";
-import FinnishVocabularyLoading from "./loading";
 
 export const metadata: Metadata = {
     title: "Finnish Vocabulary",
@@ -27,25 +24,11 @@ const SECTION_ICONS = [
     "BookMarked",
 ] as const;
 
-const CACHE_TAG = "finnish-vocabulary-page";
-const REVALIDATE_SECONDS = 3600; // 1 hour; use false for build-time only
-
-async function loadVocabularyPageData() {
+export default async function FinnishVocabularyPage() {
     const item = getByPath(["finnish-vocabulary"]);
     const rawHtml = item?.content?.rendered ?? "";
     const html = rewriteContentUrls(rawHtml);
     const sections = parseVocabularyPageHtml(html);
-    return { item, sections };
-}
-
-const getCachedVocabularyPageData = unstable_cache(
-    loadVocabularyPageData,
-    [CACHE_TAG],
-    { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAG] },
-);
-
-async function VocabularyPageContent() {
-    const { item, sections } = await getCachedVocabularyPageData();
     const hasSections = sections.length > 0;
 
     return (
@@ -90,8 +73,8 @@ async function VocabularyPageContent() {
                         <div className="rounded-lg border border-border bg-card p-8 text-center space-y-4">
                             <p className="text-muted-foreground">
                                 Vocabulary content is loaded from the site
-                                index. If you don’t see any sections here, the
-                                vocabulary index may not be available yet.
+                                index. If you don&apos;t see any sections here,
+                                the vocabulary index may not be available yet.
                             </p>
                             <Link
                                 href="/finnish-grammar"
@@ -104,13 +87,5 @@ async function VocabularyPageContent() {
                 </main>
             </div>
         </div>
-    );
-}
-
-export default function FinnishVocabularyPage() {
-    return (
-        <Suspense fallback={<FinnishVocabularyLoading />}>
-            <VocabularyPageContent />
-        </Suspense>
     );
 }

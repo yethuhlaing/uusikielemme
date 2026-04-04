@@ -1,14 +1,11 @@
 import Link from "next/link";
-import { Suspense } from "react";
 import type { Metadata } from "next";
-import { unstable_cache } from "next/cache";
 import { getByPath, rewriteContentUrls } from "@/lib/wp-json";
 import { parseGrammarPageHtml } from "@/lib/grammar-parse";
 import type { IndexSection } from "@/lib/vocabulary-parse";
 import { GrammarHero } from "./GrammarHero";
 import { VocabularyToc } from "../finnish-vocabulary/VocabularyToc";
 import { VocabularySectionBlock } from "../finnish-vocabulary/VocabularySectionBlock";
-import FinnishGrammarLoading from "./loading";
 
 export const metadata: Metadata = {
     title: "Finnish Grammar",
@@ -25,25 +22,11 @@ const SECTION_ICONS = [
     "BookMarked",
 ] as const;
 
-const CACHE_TAG = "finnish-grammar-page";
-const REVALIDATE_SECONDS = 3600; // 1 hour
-
-async function loadGrammarPageData() {
+export default async function FinnishGrammarPage() {
     const item = getByPath(["finnish-grammar"]);
     const rawHtml = item?.content?.rendered ?? "";
     const html = rewriteContentUrls(rawHtml);
     const sections = parseGrammarPageHtml(html);
-    return { item, sections };
-}
-
-const getCachedGrammarPageData = unstable_cache(
-    loadGrammarPageData,
-    [CACHE_TAG],
-    { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAG] },
-);
-
-async function GrammarPageContent() {
-    const { item, sections } = await getCachedGrammarPageData();
     const hasSections = sections.length > 0;
     const sectionsAsIndex: IndexSection[] = sections;
 
@@ -106,13 +89,5 @@ async function GrammarPageContent() {
                 </main>
             </div>
         </div>
-    );
-}
-
-export default function FinnishGrammarPage() {
-    return (
-        <Suspense fallback={<FinnishGrammarLoading />}>
-            <GrammarPageContent />
-        </Suspense>
     );
 }
