@@ -7,6 +7,14 @@ import {
 } from "@/lib/wp-json";
 import { parseVocabularyPageHtml } from "@/lib/vocabulary-parse";
 
+/** Paths with a dedicated `app/(main)/…/page.tsx` — must not duplicate in `[...slug]`. */
+const DEDICATED_ROUTE_PATHS = new Set([
+    "/how-it-works",
+    "/notes",
+    "/finnish-grammar",
+    "/finnish-vocabulary",
+]);
+
 /**
  * All route paths that should be statically generated (canonical + linked from
  * grammar/vocabulary index). Used by [...slug].
@@ -42,7 +50,9 @@ export function getAllRoutePaths(): string[] {
         }
     }
 
-    return [...pathSet].filter((p) => p !== "/");
+    return [...pathSet].filter(
+        (p) => p !== "/" && !DEDICATED_ROUTE_PATHS.has(p),
+    );
 }
 
 export { pathToSlugSegments } from "@/lib/wp-json";
