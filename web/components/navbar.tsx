@@ -87,7 +87,7 @@ export function Navbar() {
                             ) : null}
                             <Link
                                 href={item.href}
-                                prefetch={true}
+                                prefetch={item.href === "/notes" ? false : true}
                                 className={linkClass}
                             >
                                 {item.label}
@@ -143,7 +143,7 @@ export function Navbar() {
                             <Link
                                 key={`${item.label}-${index}`}
                                 href={item.href}
-                                prefetch={true}
+                                prefetch={item.href === "/notes" ? false : true}
                                 className={mobileLinkClass}
                                 onClick={() => setMenuOpen(false)}
                             >

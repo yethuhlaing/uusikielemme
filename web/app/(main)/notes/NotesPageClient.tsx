@@ -1,13 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ComponentProps } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import {
-    Excalidraw,
-    loadFromBlob,
-    serializeAsJSON,
-} from "@excalidraw/excalidraw";
-import "@excalidraw/excalidraw/index.css";
+import dynamic from "next/dynamic";
 import {
     createNote,
     deleteNote,
@@ -20,6 +15,10 @@ import {
 import { sileo } from "sileo";
 
 const DEBOUNCE_MS = 400;
+const NotesCanvas = dynamic(
+    () => import("./NotesCanvas").then((m) => ({ default: m.NotesCanvas })),
+    { ssr: false },
+);
 
 async function loadNoteData(
     noteId: string,
@@ -29,6 +28,7 @@ async function loadNoteData(
     const raw = window.localStorage.getItem(key);
     if (!raw) return null;
     try {
+        const { loadFromBlob } = await import("@excalidraw/excalidraw");
         const blob = new Blob([raw], {
             type: "application/vnd.excalidraw+json",
         });
@@ -82,19 +82,28 @@ export function NotesPageClient() {
             if (!selectedId) return;
             if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
             saveTimeoutRef.current = setTimeout(() => {
-                try {
-                    const json = serializeAsJSON(
-                        elements as never,
-                        appState as never,
-                        files as never,
-                        "local",
-                    );
-                    const key = getExcalidrawStorageKeyById(selectedId);
-                    if (typeof window !== "undefined" && window.localStorage) {
-                        window.localStorage.setItem(key, json);
+                const persist = async () => {
+                    try {
+                        const { serializeAsJSON } = await import(
+                            "@excalidraw/excalidraw"
+                        );
+                        const json = serializeAsJSON(
+                            elements as never,
+                            appState as never,
+                            files as never,
+                            "local",
+                        );
+                        const key = getExcalidrawStorageKeyById(selectedId);
+                        if (typeof window !== "undefined" && window.localStorage) {
+                            window.localStorage.setItem(key, json);
+                        }
+                    } catch (_) {
+                        // ignore serialization failures
+                    } finally {
+                        saveTimeoutRef.current = null;
                     }
-                } catch (_) {}
-                saveTimeoutRef.current = null;
+                };
+                void persist();
             }, DEBOUNCE_MS);
         },
         [selectedId],
@@ -316,15 +325,10 @@ export function NotesPageClient() {
                             )}
                         </div>
                         <div className="flex-1 min-h-0 relative">
-                            <Excalidraw
-                                key={selectedId}
-                                initialData={
-                                    (initialData ?? null) as ComponentProps<
-                                        typeof Excalidraw
-                                    >["initialData"]
-                                }
+                            <NotesCanvas
+                                noteId={selectedId}
+                                initialData={initialData ?? null}
                                 onChange={handleChange}
-                                theme="light"
                             />
                         </div>
                     </div>
