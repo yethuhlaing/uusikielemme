@@ -32,13 +32,10 @@ export default async function FinnishVocabularyPage() {
     const hasSections = sections.length > 0;
 
     return (
-        <div className="min-h-screen w-full text-foreground selection:bg-primary/20 selection:text-primary">
-            <div className="fixed inset-0 pointer-events-none z-0 dot-grid" />
+        <div className="text-foreground selection:bg-primary/20 selection:text-primary flex flex-col lg:flex-row gap-12 relative z-10">
+            <VocabularyToc sections={sections} />
 
-            <div className="max-w-9xl mx-auto px-6 sm:px-8 lg:px-12 py-16 flex flex-col lg:flex-row gap-12 relative z-10">
-                <VocabularyToc sections={sections} />
-
-                <main className="flex-1 min-w-0">
+            <section className="flex-1 min-w-0">
                     <VocabularyHero
                         title={item?.title?.rendered ?? "Finnish Vocabulary"}
                         excerptHtml={
@@ -84,8 +81,7 @@ export default async function FinnishVocabularyPage() {
                             </Link>
                         </div>
                     )}
-                </main>
-            </div>
+            </section>
         </div>
     );
 }

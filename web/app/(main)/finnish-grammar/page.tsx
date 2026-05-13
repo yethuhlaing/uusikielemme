@@ -31,16 +31,13 @@ export default async function FinnishGrammarPage() {
     const sectionsAsIndex: IndexSection[] = sections;
 
     return (
-        <div className="min-h-screen w-full text-foreground selection:bg-primary/20 selection:text-primary">
-            <div className="fixed inset-0 pointer-events-none z-0 dot-grid" />
+        <div className="text-foreground selection:bg-primary/20 selection:text-primary flex flex-col lg:flex-row gap-12 relative z-10">
+            <VocabularyToc
+                sections={sectionsAsIndex}
+                ariaLabel="Grammar sections"
+            />
 
-            <div className="max-w-9xl mx-auto px-6 sm:px-8 lg:px-12 py-16 flex flex-col lg:flex-row gap-12 relative z-10">
-                <VocabularyToc
-                    sections={sectionsAsIndex}
-                    ariaLabel="Grammar sections"
-                />
-
-                <main className="flex-1 min-w-0">
+            <section className="flex-1 min-w-0">
                     <GrammarHero
                         title={item?.title?.rendered ?? "Finnish Grammar"}
                         excerptHtml={
@@ -86,8 +83,7 @@ export default async function FinnishGrammarPage() {
                             </Link>
                         </div>
                     )}
-                </main>
-            </div>
+            </section>
         </div>
     );
 }

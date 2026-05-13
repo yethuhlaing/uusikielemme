@@ -58,7 +58,7 @@ export function Navbar() {
     return (
         <>
             <header
-                className="sticky top-0 z-50 flex items-center justify-between gap-4 border-b border-border bg-background px-6 py-5 sm:px-10"
+                className="sticky top-0 z-50 flex items-center justify-between gap-4 bg-background px-6 py-5 sm:px-10"
                 role="banner"
             >
                 <Link
@@ -71,7 +71,6 @@ export function Navbar() {
                     >
                         U
                     </span>
-                    <span className="truncate">Uusi kielemme</span>
                 </Link>
 
                 <nav

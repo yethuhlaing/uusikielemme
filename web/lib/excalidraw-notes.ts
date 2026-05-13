@@ -11,6 +11,7 @@ export type NoteMeta = {
     title: string;
     linkedPath?: string;
     createdAt: number;
+    updatedAt?: number;
 };
 
 function getStorage(): Storage | null {
@@ -85,6 +86,14 @@ export function updateNoteMeta(
     const idx = registry.findIndex((n) => n.id === id);
     if (idx === -1) return;
     registry[idx] = { ...registry[idx], ...partial };
+    saveRegistry(registry);
+}
+
+export function touchNote(id: string): void {
+    const registry = getRegistry();
+    const idx = registry.findIndex((n) => n.id === id);
+    if (idx === -1) return;
+    registry[idx] = { ...registry[idx], updatedAt: Date.now() };
     saveRegistry(registry);
 }
 

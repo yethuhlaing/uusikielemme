@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { SileoToaster } from "@/components/SileoToaster";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const nunito = Nunito({
+const plusJakartaSans = Plus_Jakarta_Sans({
     subsets: ["latin"],
-    variable: "--font-nunito",
+    variable: "--font-plus-jakarta",
     display: "swap",
     weight: ["400", "500", "600", "700"],
 });
@@ -34,7 +34,7 @@ export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="fi" translate="no" suppressHydrationWarning className={nunito.variable}>
+        <html lang="fi" translate="no" suppressHydrationWarning className={plusJakartaSans.variable}>
             <head>
                 <meta name="google" content="notranslate" />
                 <script
@@ -44,7 +44,7 @@ export default function RootLayout({
             </head>
             <body
                 className="font-sans flex flex-col min-h-screen"
-                style={{ fontFamily: "var(--font-nunito), Nunito, sans-serif" }}
+                style={{ fontFamily: "var(--font-plus-jakarta), Plus Jakarta Sans, sans-serif" }}
                 suppressHydrationWarning
             >
                 <NextTopLoader
@@ -55,7 +55,7 @@ export default function RootLayout({
                 <ThemeProvider>
                     <SileoToaster />
                     <Navbar />
-                    <div className="flex-1 flex flex-col min-h-0">
+                    <div className="flex-1 flex flex-col">
                         {children}
                     </div>
                 </ThemeProvider>

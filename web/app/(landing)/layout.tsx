@@ -11,12 +11,7 @@ export default function LandingLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <div
-            className="antialiased flex flex-col min-h-0 overflow-hidden bg-background"
-            style={{
-                height: "calc(100vh - var(--navbar-height, 4.5rem))",
-            }}
-        >
+        <div className="antialiased flex flex-col min-h-screen bg-background">
             {children}
         </div>
     );

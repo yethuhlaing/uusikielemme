@@ -1,46 +1,45 @@
 /* Uusi kielemme – Language learning design system (Tailwind v4) */
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #f8f7f4;
-  --foreground: #1a1f2e;
-  --card: #ffffff;
-  --card-foreground: #1a1f2e;
-  --popover: #ffffff;
-  --popover-foreground: #1a1f2e;
-  --primary: #7c9082;
-  --primary-foreground: #ffffff;
-  --secondary: #ced4bf;
-  --secondary-foreground: #1a1f2e;
-  --muted: #e8e6e1;
-  --muted-foreground: #6b7280;
-  --accent: #bfc9bb;
-  --accent-foreground: #1a1f2e;
-  --destructive: #c73e3a;
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: #ffffff;
-  --border: #e8e6e1;
-  --input: #ffffff;
-  --ring: #7c9082;
-  --chart-1: #7c9082;
-  --chart-2: #a0aa88;
-  --chart-3: #8b9d83;
-  --chart-4: #6b7280;
-  --chart-5: #e8e6e1;
-  --sidebar: #fafaf8;
-  --sidebar-foreground: #1a1f2e;
-  --sidebar-primary: #7c9082;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e8e6e1;
-  --sidebar-accent-foreground: #1a1f2e;
-  --sidebar-border: #e8e6e1;
-  --sidebar-ring: #7c9082;
-  /* Use layout-loaded Nunito everywhere (--font-nunito from layout.tsx) */
-  --font-sans: var(--font-nunito), Nunito, ui-sans-serif, sans-serif, system-ui;
-  --font-serif: var(--font-nunito), Nunito, ui-sans-serif, sans-serif, system-ui;
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  /* Use layout-loaded Plus Jakarta Sans everywhere (--font-plus-jakarta from layout.tsx) */
+  --font-sans: var(--font-plus-jakarta), "Plus Jakarta Sans", ui-sans-serif, sans-serif, system-ui;
+  --font-serif: var(--font-plus-jakarta), "Plus Jakarta Sans", ui-sans-serif, sans-serif, system-ui;
   --font-mono: JetBrains Mono, Courier New, monospace;
-  --radius: 0.35rem;
+  --radius: 0.625rem;
   --shadow-x: 0px;
   --shadow-y: 1px;
   --shadow-blur: 2px;
@@ -71,43 +70,52 @@
   --tag-3: #6b7a6e;
   --tag-4: #8b9d83;
   --tag-5: #ced4bf;
+  --background: #FFFBF2;
+  --foreground: #1a1f2e;
+  --card: #FFFFFF;
+  --card-foreground: #1a1f2e;
+  --popover: #FFFFFF;
+  --popover-foreground: #1a1f2e;
+  --border: #1a1f2e1a;
+  --muted: #f3efe4;
+  --muted-foreground: #5a5f6e;
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #f5f5f5;
-  --card: #121212;
-  --card-foreground: #f5f5f5;
-  --popover: #121212;
-  --popover-foreground: #f5f5f5;
-  --primary: #7c9082;
-  --primary-foreground: #000000;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #f5f5f5;
-  --muted: #1a1a1a;
-  --muted-foreground: #a0a0a0;
-  --accent: #36443a;
-  --accent-foreground: #f5f5f5;
-  --destructive: #ef4444;
+  --background: #1D1D1D;
+  --foreground: #FFFBF2;
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: #ffffff;
-  --border: #2a2a2a;
-  --input: #121212;
-  --ring: #7c9082;
-  --chart-1: #7c9082;
-  --chart-2: #a0aa88;
-  --chart-3: #8b9d83;
-  --chart-4: #6b7280;
-  --chart-5: #5a6b5e;
-  --sidebar: #0f0f0f;
-  --sidebar-foreground: #f5f5f5;
-  --sidebar-primary: #7c9082;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: #f5f5f5;
-  --sidebar-border: #2a2a2a;
-  --sidebar-ring: #7c9082;
-  --font-sans: var(--font-nunito), Nunito, ui-sans-serif, sans-serif, system-ui;
-  --font-serif: var(--font-nunito), Nunito, ui-sans-serif, sans-serif, system-ui;
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+  --font-sans: var(--font-plus-jakarta), "Plus Jakarta Sans", ui-sans-serif, sans-serif, system-ui;
+  --font-serif: var(--font-plus-jakarta), "Plus Jakarta Sans", ui-sans-serif, sans-serif, system-ui;
   --font-mono: JetBrains Mono, Courier New, monospace;
   --radius: 0.35rem;
   --shadow-x: 0px;
@@ -203,6 +211,10 @@
   --color-tag-3: var(--tag-3);
   --color-tag-4: var(--tag-4);
   --color-tag-5: var(--tag-5);
+  --font-heading: var(--font-sans);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 @layer base {
@@ -211,11 +223,11 @@
   }
 
   html {
-    @apply scroll-pt-16;
+    @apply scroll-pt-16 font-sans;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply antialiased bg-background text-foreground;
     font-family: var(--font-sans);
     font-feature-settings:
         "kern" 1,
