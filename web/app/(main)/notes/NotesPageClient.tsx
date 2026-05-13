@@ -314,7 +314,7 @@ export function NotesPageClient() {
     }, [notes, search, sort]);
 
     return (
-        <div className="flex flex-1 min-h-0 w-full -mx-6 sm:-mx-8 lg:-mx-12 -my-8 overflow-hidden">
+        <div className="flex flex-1 min-h-0 w-full overflow-hidden rounded-4xl shadow-lg">
             {!collapsed && (
                 <aside
                     className="shrink-0 border-r border-border bg-card flex flex-col relative"
@@ -519,7 +519,7 @@ export function NotesPageClient() {
                 </button>
             )}
 
-            <main className="flex-1 min-w-0 flex flex-col bg-background">
+            <main className="w-full flex flex-col bg-background">
                 {!selectedId ? (
                     <div className="flex-1 flex items-center justify-center p-8">
                         <div className="text-center max-w-sm">

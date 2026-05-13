@@ -269,8 +269,8 @@ export default function LandingPage() {
                             Free, open, no signup. Pick a page and go.
                         </p>
                         <div className="mt-8 flex flex-wrap gap-3">
-                            <Link href="/finnish-grammar" className="rounded-full bg-white text-foreground px-6 py-3 font-semibold hover:scale-105 transition-transform">Grammar</Link>
-                            <Link href="/finnish-vocabulary" className="rounded-full bg-white text-foreground px-6 py-3 font-semibold hover:scale-105 transition-transform">Vocabulary</Link>
+                            <Link href="/finnish-grammar" className="rounded-full bg-background text-foreground px-6 py-3 font-semibold hover:scale-105 transition-transform">Grammar</Link>
+                            <Link href="/finnish-vocabulary" className="rounded-full bg-background text-foreground px-6 py-3 font-semibold hover:scale-105 transition-transform">Vocabulary</Link>
                             <Link href="/notes" className="rounded-full border-2 border-white text-white px-6 py-3 font-semibold hover:bg-white hover:text-foreground transition-colors">Notes</Link>
                         </div>
                     </div>

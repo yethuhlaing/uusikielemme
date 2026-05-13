@@ -3,21 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV_LINKS = [
-    { href: "/finnish-grammar", label: "Grammar" },
-    { href: "/finnish-vocabulary", label: "Vocabulary" },
-    { href: "/how-it-works", label: "How it works" },
-    { href: "/notes", label: "Notes" },
+    { href: "/finnish-grammar", label: "Grammar", color: "#ffd726", fg: "#1a1f2e" },
+    { href: "/finnish-vocabulary", label: "Vocabulary", color: "#0015ff", fg: "#ffffff" },
+    { href: "/how-it-works", label: "How it works", color: "#e794da", fg: "#1a1f2e" },
+    { href: "/notes", label: "Notes", color: "#ff5941", fg: "#ffffff" },
 ] as const;
-
-const linkClass =
-    "px-2 py-1 hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background rounded";
-
-const mobileLinkClass =
-    "block w-full rounded-lg px-4 py-3 text-base font-medium text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background";
 
 export function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -58,48 +52,63 @@ export function Navbar() {
     return (
         <>
             <header
-                className="sticky top-0 z-50 flex items-center justify-between gap-4 bg-background px-6 py-5 sm:px-10"
+                className="sticky top-0 z-50 flex items-center justify-between gap-4 bg-background px-4 py-4 sm:px-8"
                 role="banner"
             >
                 <Link
                     href="/"
-                    className="flex min-w-0 items-center gap-2 text-xl font-semibold text-foreground transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background rounded"
+                    aria-label="Uusi kielemme — home"
+                    className="group flex min-w-0 items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg"
                 >
                     <span
-                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-primary text-sm font-bold text-primary-foreground"
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 border-foreground bg-[#ffd726] text-base font-extrabold text-[#1a1f2e] -rotate-3 shadow-[3px_3px_0_0_#1a1f2e] dark:shadow-[3px_3px_0_0_#fff] transition-transform group-hover:rotate-0"
                         aria-hidden
                     >
                         U
                     </span>
+                    <span className="hidden sm:inline text-lg font-bold tracking-tight text-foreground">
+                        uusikielemme
+                    </span>
                 </Link>
 
                 <nav
-                    className="hidden items-center gap-1 text-sm font-normal text-foreground md:flex"
+                    className="hidden items-center gap-2 md:flex"
                     aria-label="Main"
                 >
-                    {NAV_LINKS.map((item, index) => (
-                        <span key={`${item.label}-${index}`} className="contents">
-                            {index > 0 ? (
-                                <span className="text-muted-foreground" aria-hidden>
-                                    /
-                                </span>
-                            ) : null}
+                    {NAV_LINKS.map((item) => {
+                        const active = pathname === item.href || pathname.startsWith(item.href + "/");
+                        return (
                             <Link
+                                key={item.href}
                                 href={item.href}
                                 prefetch={item.href === "/notes" ? false : true}
-                                className={linkClass}
+                                aria-current={active ? "page" : undefined}
+                                className={
+                                    "rounded-full border-2 border-foreground px-3.5 py-1.5 text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background " +
+                                    (active
+                                        ? "shadow-[3px_3px_0_0_#1a1f2e] dark:shadow-[3px_3px_0_0_#fff]"
+                                        : "border-transparent hover:border-foreground hover:shadow-[3px_3px_0_0_#1a1f2e] dark:hover:shadow-[3px_3px_0_0_#fff] hover:-translate-y-[1px]")
+                                }
+                                style={active ? { background: item.color, color: item.fg } : undefined}
                             >
                                 {item.label}
                             </Link>
-                        </span>
-                    ))}
+                        );
+                    })}
                 </nav>
 
                 <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+                    <Link
+                        href="/finnish-grammar"
+                        className="hidden md:inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-foreground text-background px-4 py-1.5 text-sm font-semibold shadow-[3px_3px_0_0_#ff5941] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_#ff5941] transition-all"
+                    >
+                        Start
+                        <ArrowUpRight className="size-4" aria-hidden />
+                    </Link>
                     <ThemeToggle />
                     <button
                         type="button"
-                        className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background md:hidden"
+                        className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-foreground bg-background text-foreground shadow-[3px_3px_0_0_#1a1f2e] dark:shadow-[3px_3px_0_0_#fff] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_#1a1f2e] dark:hover:shadow-[1px_1px_0_0_#fff] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
                         aria-expanded={menuOpen}
                         aria-controls={menuId}
                         aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -121,7 +130,7 @@ export function Navbar() {
                 <button
                     type="button"
                     tabIndex={menuOpen ? 0 : -1}
-                    className={`absolute inset-0 bg-black/40 transition-opacity duration-200 ${
+                    className={`absolute inset-0 bg-black/50 transition-opacity duration-200 ${
                         menuOpen ? "opacity-100" : "opacity-0"
                     }`}
                     aria-label="Close menu"
@@ -130,25 +139,39 @@ export function Navbar() {
                 <div
                     id={menuId}
                     inert={!menuOpen || undefined}
-                    className={`absolute top-[var(--navbar-height)] right-0 bottom-0 flex w-[min(100%,20rem)] flex-col border-l border-border bg-background shadow-lg transition-transform duration-200 ease-out ${
-                        menuOpen ? "translate-x-0" : "translate-x-full"
+                    className={`absolute top-4 right-4 bottom-4 flex w-[min(calc(100%-2rem),20rem)] flex-col rounded-2xl border-2 border-foreground bg-background shadow-[6px_6px_0_0_#1a1f2e] dark:shadow-[6px_6px_0_0_#fff] transition-transform duration-200 ease-out ${
+                        menuOpen ? "translate-x-0" : "translate-x-[calc(100%+1rem)]"
                     }`}
                 >
                     <nav
-                        className="flex flex-1 flex-col gap-0.5 overflow-y-auto p-4"
+                        className="flex flex-1 flex-col gap-2 overflow-y-auto p-4"
                         aria-label="Main"
                     >
-                        {NAV_LINKS.map((item, index) => (
-                            <Link
-                                key={`${item.label}-${index}`}
-                                href={item.href}
-                                prefetch={item.href === "/notes" ? false : true}
-                                className={mobileLinkClass}
-                                onClick={() => setMenuOpen(false)}
-                            >
-                                {item.label}
-                            </Link>
-                        ))}
+                        {NAV_LINKS.map((item) => {
+                            const active = pathname === item.href || pathname.startsWith(item.href + "/");
+                            return (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    prefetch={item.href === "/notes" ? false : true}
+                                    aria-current={active ? "page" : undefined}
+                                    onClick={() => setMenuOpen(false)}
+                                    className="flex items-center justify-between rounded-xl border-2 border-foreground px-4 py-3 text-base font-bold tracking-tight shadow-[3px_3px_0_0_#1a1f2e] dark:shadow-[3px_3px_0_0_#fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                                    style={{ background: item.color, color: item.fg }}
+                                >
+                                    <span>{item.label}</span>
+                                    <ArrowUpRight className="size-5" aria-hidden />
+                                </Link>
+                            );
+                        })}
+                        <Link
+                            href="/finnish-grammar"
+                            onClick={() => setMenuOpen(false)}
+                            className="mt-2 inline-flex items-center justify-center gap-2 rounded-full border-2 border-foreground bg-foreground text-background px-5 py-3 text-base font-semibold shadow-[4px_4px_0_0_#ff5941]"
+                        >
+                            Start learning
+                            <ArrowUpRight className="size-5" aria-hidden />
+                        </Link>
                     </nav>
                 </div>
             </div>

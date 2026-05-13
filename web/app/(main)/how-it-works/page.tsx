@@ -10,7 +10,7 @@ export const metadata = {
 function CenteredArticle({ children }: { children: ReactNode }) {
     return (
         <div className="flex w-full flex-1 flex-col items-center">
-            <div className="w-full max-w-2xl">{children}</div>
+            <div className="w-full max-w-5xl">{children}</div>
         </div>
     );
 }
@@ -46,9 +46,9 @@ export default async function HowItWorksPage() {
 
     return (
         <CenteredArticle>
-            <article className="text-left">
+            <article className="text-left ">
                 <div
-                    className="post-body"
+                    className="post-body mx-auto"
                     dangerouslySetInnerHTML={{ __html: content }}
                 />
             </article>
